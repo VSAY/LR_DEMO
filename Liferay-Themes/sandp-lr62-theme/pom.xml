@@ -1,17 +1,23 @@
 <?xml version="1.0"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sandp.spratings</groupId>
 	<artifactId>sandp-lr62-theme</artifactId>
 	<packaging>war</packaging>
 	<name>sandp-lr62-theme</name>
+
+	<properties>
+		<liferay.version>6.2.10-GA1</liferay.version>
+        <liferay.theme.parent>_styled</liferay.theme.parent>
+        <liferay.theme.type>vm</liferay.theme.type>
+        <liferay.auto.deploy.dir>${env.LIFERAY_HOME}/deploy</liferay.auto.deploy.dir>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>com.liferay.maven.plugins</groupId>
 				<artifactId>liferay-maven-plugin</artifactId>
-				<version>${liferay.maven.plugin.version}</version>
+				<version>6.2.10.15</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -28,9 +34,9 @@
 					<appServerLibGlobalDir>${liferay.app.server.lib.global.dir}</appServerLibGlobalDir>
 					<appServerPortalDir>${liferay.app.server.portal.dir}</appServerPortalDir>
 					<liferayVersion>${liferay.version}</liferayVersion>
-					<parentTheme>${liferay.theme.parent}</parentTheme>
+					<parentTheme>_styled</parentTheme>
 					<pluginType>theme</pluginType>
-					<themeType>${liferay.theme.type}</themeType>
+					<themeType>vm</themeType>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -86,14 +92,11 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-	<properties>
-		<liferay.theme.parent>_styled</liferay.theme.parent>
-		<liferay.theme.type>vm</liferay.theme.type>
-	</properties>
-	<parent>
-		<groupId>com.sandp.spratings</groupId>
-		<artifactId>spratings-lr62-plugins</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
+
+	<!--<parent>-->
+		<!--<groupId>com.sandp.spratings</groupId>-->
+		<!--<artifactId>spratings-lr62-plugins</artifactId>-->
+		<!--<version>1.0.0-SNAPSHOT</version>-->
+	<!--</parent>-->
 	<version>1.0.0-SNAPSHOT</version>
 </project>
