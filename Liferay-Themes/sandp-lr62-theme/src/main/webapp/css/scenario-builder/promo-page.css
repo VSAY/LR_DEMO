@@ -1,0 +1,134 @@
+/*------------------------------------
+    PROMO PAGE STYLES
+---------------------------------------*/
+
+.bank-builder-container {  
+  padding-top:10px;
+  color:#666;
+}
+
+.bank-builder-container .pageTitle {padding-left:0px; padding-bottom:15px; float:none;}
+
+.bank-builder-container h1{
+  color:#df272d;
+  font-size:48px;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.bank-builder-container .small-headline {
+  color:#414042;
+  font-size:22px;
+  line-height: 22px;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-align: left;
+}
+
+.promo-wrapper {
+  background: url(../../images/scenario-builder/bank_bg.jpg) no-repeat top left;
+  padding:160px 0 0 325px;
+}
+.credit-promo-wrapper {
+  background: url(../../images/scenario-builder/credit_bg.jpg) no-repeat top left;
+  padding:160px 0 0 325px;
+}
+.uslg-promo-wrapper {
+  background: url(../../images/scenario-builder/uslg_bg.jpg) no-repeat top left;
+  padding:160px 0 0 325px;
+}
+.insurance-promo-wrapper {
+  background: url(../../images/scenario-builder/insurance_bg.jpg) no-repeat top left;
+  padding:160px 0 0 325px;
+}
+
+.promo-content {
+  background: #fff;
+  padding:40px 40px 40px 70px;
+  font-size:14px;
+  text-align: left;
+}
+
+.promo-content h3{
+  color:#df272d;
+  font-size: 22px;
+  width:440px;
+  margin-bottom:20px;
+  text-align: left;
+}
+
+.promo-content ul{
+  list-style-type: disc;
+  padding-left:15px;
+  margin-bottom:15px;
+  margin-top:5px;
+  text-align: left;
+}
+
+.promo-content ul li {
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.promo-content p{
+  margin-bottom:15px;
+  text-align: left;
+}
+
+.scenario-button-wrap {margin-top:44px;}
+
+.action-wrapper {
+  width:170px;
+  float:left;
+   margin-right:40px;
+}
+.action-wrapper a:link, .action-wrapper a:visited, .action-wrapper a:hover, .action-wrapper a:active {
+    color: #fff;
+}
+.action-wrapper p{margin-bottom:5px; font-size:12px}
+.action-wrapper p a:link, .action-wrapper p a:visited, .action-wrapper p a:hover, .action-wrapper p a:active{
+    color: #1d578c;
+    font-weight: bold;
+}
+
+.no-margin {margin:0px !important;}
+
+.red-button {
+  background:#df272d;
+  color:#fff;
+  display:block;
+  text-align: center;
+  padding:5px;
+  font-size:13px;
+  margin-bottom: 5px
+}
+
+.red-button:hover {
+  color:#fff !important;
+  background:#bf191f;
+}
+
+.gray-button {
+  background:#8b8b8b;
+  color:#fff;
+  display:block;
+  text-align: center;
+  padding:5px;
+  font-size:13px;
+  margin-bottom: 5px
+}
+
+.gray-button:hover {
+  background:#474747;
+  color:#fff !important;
+}
+
+.red-button .arrow {margin-left:10px;}
+
+.promo-footer {
+  margin-left:35px;
+  margin-right:20px;
+  padding:15px 15px 20px 35px; 
+  clear:both;
+  background: url(../../images/scenario-builder/shadow.jpg) repeat-x top left white;
+}

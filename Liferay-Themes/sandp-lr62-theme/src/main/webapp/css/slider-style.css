@@ -1,0 +1,42 @@
+.sliderContainer {
+	width: 546px;
+}
+
+.simpleSlider {
+	width: 546px;
+	height: 410px;
+	overflow: hidden;
+	position: relative;
+	list-style: none;
+	padding: 0;
+	margin: 0 !important;
+}
+
+.simpleSlider li {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+}
+
+.simpleSlider li:first-child {
+	display: block;
+}
+
+li img {
+	border-radius: 2px;
+}
+
+.simpleSliderNavItem {
+	height: 12px;
+	width: 12px;
+	float: left;
+	background: #CCC;
+	margin-right: 10px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.active {
+	background: #333;
+}

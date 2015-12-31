@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+#parse ($init)
+
+<html class="#language("lang.dir")" dir="#language("lang.dir")" lang="$w3c_language_id">
+
+<head>
+
+  <title>$the_title - $company_name</title>
+#* NEX-4006 -jquery.min.js version 1.7.1 updated *#
+  <script src="$javascript_folder/jquery.min.js"></script>
+#*  <script src="$javascript_folder/jwplayer.js"></script> *#
+  <script src="$javascript_folder/jquery.cycle.all.js"></script>
+  <script src="$javascript_folder/jquery.uniform.min.js"></script>
+  <script src="$javascript_folder/custom.js"></script>
+  $theme.include($top_head_include)
+</head>
+
+<body class="$css_class #if ($layoutTypePortlet.getLayoutTemplate().getName()=="Netacad Public") home #end" >
+
+#if ($is_signed_in)
+  #if (($permissionChecker.isOmniadmin())||$permissionChecker.isGroupAdmin($themeDisplay.getLayout().getGroupId()))
+    #dockbar()
+  #end
+#end
+
+<div id="wrapper">
+  <div class="content-wrapper">
+  <a href="#main-content" id="skip-to-content" onclick="$('#main-content').attr('tabIndex',-1).focus();">#language("skip-to-content")</a>
+
+  <header id="banner" role="banner">
+    <div id="heading">
+      <div class="heading-content">
+      #if ($is_signed_in)
+      <nav class="main">
+        <ul>
+            #set ($userProfileLink = $portletURLFactory.create($request, "netacaduserprofile_WAR_netacaduserprofileportlet", $getterUtil.getLong($plid), "RENDER_PHASE"))
+            ${userProfileLink.setWindowState("maximized")}
+            ${userProfileLink.setPortletMode("view")}
+            ${userProfileLink.setParameter("jspPage", "/view.jsp")}
+            ${userProfileLink.setParameter("privateLayout", "true")}
+            ${userProfileLink.setParameter("fromtheme", "true")}
+            ${userProfileLink.setParameter("fromthemeRedirect", $theme_display.getURLCurrent())}
+          <li><span class="welcome-text">$languageUtil.get($pageContext, "welcome-comma") <a class="user-dialog-link" href="${userProfileLink.toString()}" id="user-dialog-link">$user_name</a></span></li>
+		  <li><a class='cisco-sign-out' href="/c/portal/logout">$sign_out_text</a></li>
+
+         <li class="help-portlet-popup">
+            <a id="help-portlet-link" href="#">$languageUtil.get($pageContext, "help")</a>
+            <div class="help-portlet-container popup-menu">
+              $theme.runtime("help_WAR_helpportlet")
+            </div>
+          </li>
+
+          <li class="search-container">
+            <span class="search-wrap">
+              <div id="utilitySearchPlaceholder"></div>
+              <a href="#" id="showUtilitySearch">Search</a>
+              
+              $theme.search()
+            </span>
+          </li>
+
+        </ul>
+      </nav>
+#*
+      #else
+      <nav class="main">
+        <ul>
+          <li class="search-box-popup">
+            <a href="#" id="search-dropdown-link">Search</a>
+            <div class="search-box-container popup-menu">
+              $theme.search()
+            </div>
+          </li>
+         <li class="help-portlet-popup">
+            <a id="help-portlet-link" href="#">Help</a>
+            <div class="help-portlet-container popup-menu">
+              $theme.runtime("help_WAR_helpportlet")
+            </div>
+          </li>
+        </ul>
+      </nav>
+*#      
+      #end
+
+      <h1 class="company-title">
+        #*<a class="$logo_css_class" href="/" title="#language("go-to") $company_name">*#
+          <!-- <span>$company_name</span>-->
+          <img alt="$logo_description" height="$site_logo_height" src="$site_logo" width="$site_logo_width" />
+        #*</a>*#
+      </h1>
+
+      <h2 class="site-title">
+        <a href="/" title="#language("go-to") $site_name">
+          <img alt="$logo_description" height="$site_logo_height" src="$site_logo" width="$site_logo_width" />
+        </a>
+      </h2>
+
+      <h3 class="page-title">
+        <span>$the_title</span>
+      </h3>
+
+      <h4 class="cisco-logo"></h4>
+      </div>
+    </div>
+
+    #if (!$is_signed_in)
+      <a href="$sign_in_url" id="sign-in" rel="nofollow">$sign_in_text</a>
+    #end
+
+		#parse ("$full_templates_path/navigation.vm")
+
+  #*
+  #set ($places = $user.getMySites())
+  #foreach ($place in $places)
+  #if ($place.getName() != "Landing")
+      #if ($place.isCommunity())
+        <li><a href="$place.getPathFriendlyURL(false, $themeDisplay)$place.getFriendlyURL()">$place.getName()</a></li>
+      #end
+    #if ($place.isUser())
+      #set ($myPlaceURL = $portletURLFactory.create($request, "49", $getterUtil.getLong($plid), "ACTION_PHASE"))
+
+      ${myPlaceURL.setWindowState("normal")}
+      ${myPlaceURL.setPortletMode("view")}
+      ${myPlaceURL.setParameter("groupId",  ${place.getGroupId().toString()})}
+      ${myPlaceURL.setParameter("struts_action", "/my_sites/view")}
+
+      #if (${place.hasPrivateLayouts()})
+        ${myPlaceURL.setParameter("privateLayout", "true")}
+        <li><a href="${myPlaceURL.toString()}">Community Profile</a></li>
+      #end
+
+      #if (${place.hasPublicLayouts()})
+        ${myPlaceURL.setParameter("privateLayout", "false")}
+        <li><a href="${myPlaceURL.toString()}">Community Activites</a></li>
+      #end
+      #end
+  #end
+  #end
+  *#   
+  </header>
+
+  <div id="content">
+
+    #if ($selectable)
+      $theme.include($content_include)
+    #else
+      $portletDisplay.recycle()
+
+      $portletDisplay.setTitle($the_title)
+
+      $theme.wrapPortlet("portlet.vm", $content_include)
+    #end
+  </div>
+  </div>
+
+  <footer id="footer" role="contentinfo">
+  	<div class="footer-wrap">
+	    <div class="footer-content">
+	      <ul class="links">
+        #if ($is_signed_in)
+	        <li><a href="/web/about-us/terms-and-conditions">$languageUtil.get($pageContext, "terms-and-conditions")</a></li>
+	        <li><a href="http://www.cisco.com/web/siteassets/legal/privacy.html" target="_blank">$languageUtil.get($pageContext, "privacy-statement")</a></li>
+	        <li><a href="http://www.cisco.com/web/siteassets/legal/privacy_full.html#cookies" target="_blank">$languageUtil.get($pageContext, "cookie-policy")</a></li>
+	        <li><a href="http://www.cisco.com/web/siteassets/legal/trademark.html" target="_blank">$languageUtil.get($pageContext, "trademarks")</a></li>
+        #else
+			<li><a href="/web/about-us/terms-and-conditions">$languageUtil.get($pageContext, "terms-and-conditions")</a></li>
+			<li><a href="http://www.cisco.com/web/siteassets/legal/privacy.html" target="_blank">$languageUtil.get($pageContext, "privacy-statement")</a></li>
+			<li><a href="http://www.cisco.com/web/siteassets/legal/privacy_full.html#cookies" target="_blank">$languageUtil.get($pageContext, "cookie-policy")</a></li>
+			<li><a href="http://www.cisco.com/web/siteassets/legal/trademark.html" target="_blank">$languageUtil.get($pageContext, "trademarks")</a></li>
+        #end
+	      </ul>
+        #if ($is_signed_in)	      
+	      <h4 class="netspace-text">$languageUtil.get($pageContext, "netspace")</h4>
+	      #end
+	    </div>
+	</div>
+  </footer>
+</div>
+
+$theme.include($body_bottom_include)
+<!--Show user voice? ${request.getSession().getAttribute("showUserVoice")}-->
+<!--UserVoice SSO Key: ${request.getSession().getAttribute("userVoiceSSOKey")} -->
+#if (${request.getSession().getAttribute("showUserVoice")})
+<script type="text/javascript">
+  var uvOptions = {
+	  sso: "${request.getSession().getAttribute("userVoiceSSOKey")}"
+  };
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/LNPdERFpKa6SuUb4P7zDBw.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
+</script>
+#end
+</body>
+$theme.include($bottom_include)
+##<script src="$javascript_folder/user-dialog.js"></script>
+<script src="$javascript_folder/dropdown.js"></script>
+
+#if ($user.isAgreedToTermsOfUse())
+	<script type="text/javascript" charset="utf-8">
+		AUI().ready('aui-aria', 'aui-dialog', 'aui-overlay-manager', 'dd-constrain', function(A) {
+            var cisco_sign_out = A.one('.cisco-sign-out');
+            if (cisco_sign_out) {
+                cisco_sign_out.on('click', function (event) {
+                    event.preventDefault();
+                    var options = {
+                        // centered: true,
+                        constrain2view: true,
+                        draggable: false,
+                        resizable: false,
+                        // destroyOnClose: true,
+                        group: 'default',
+                        height: 224,
+                        stack: true,
+                        // shim: true,
+                        width: 435,
+                        cssClass: 'cisco-signout-popup',
+                        modal: true,
+                        close: false
+                    };
+
+                    var dialog1 = new A.Dialog(
+                            A.merge(options, {
+                                title: 'Signing Out',
+                                centered: true
+                            })
+                    ).render();
+
+                    dialog1.plug(A.Plugin.IO, {
+                        uri: '/c/portal/saml/slo_logout'
+                    });
+                });
+            }
+		});
+	</script>
+#end
+
+</html>

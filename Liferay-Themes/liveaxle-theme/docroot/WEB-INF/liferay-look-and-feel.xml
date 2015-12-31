@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE look-and-feel PUBLIC "-//Liferay//DTD Look and Feel 6.1.0//EN" "http://www.liferay.com/dtd/liferay-look-and-feel_6_1_0.dtd">
+
+<look-and-feel>
+	<compatibility>
+		<version>6.1.10+</version>
+	</compatibility>
+	<theme id="liveaxle" name="liveaxle theme">
+	<settings>
+    	<setting configurable="true" key="community-homePage"  value="community-home" />
+		<setting configurable="true" key="community-name"  value="Communities" />
+ 	</settings> 
+	</theme>
+</look-and-feel>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+#parse ($init)
+
+<html dir="#language ("lang.dir")" lang="$w3c_language_id">
+
+<head>
+	<title>$the_title</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="$javascript_folder/jquery.uniform.min.js"></script>
+
+	$theme.include($top_head_include)
+</head>
+
+<body class="portal-popup $css_class">
+
+$theme.include($content_include)
+
+$theme.include($bottom_ext_include)
+
+</body>
+
+</html>

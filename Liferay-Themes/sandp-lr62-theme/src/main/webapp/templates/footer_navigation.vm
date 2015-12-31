@@ -1,0 +1,29 @@
+	<div style="clear:both;"></div>
+	#if($page.getName($locale) == "Understanding Ratings")
+		<div class="footer-top">
+			<p>Learn more about our ratings. Contact us at <a href="mailto:creditmatters@standardandpoors.com">creditmatters@standardandpoors.com.</a></p>
+			<p>If you're a media outlet and would like more information, please <a href="/$userLanguageId/media-contacts">click here.</a></p>
+			<p>If you're an investor and would like to provide feedback, reach out to us at <a href="mailto:investor_feedback@standardandpoors.com">investor_feedback@standardandpoors.com.</a></p>
+		</div>
+	#end
+	<div class="site-footer">
+		#set($layoutLocalServiceUtil = $serviceLocator.findService("com.liferay.portal.service.LayoutLocalService"))
+        #set($topPublicLayouts = $layoutLocalServiceUtil.getLayouts($layout.getGroupId(),false))
+        #foreach ($lay_item in $topPublicLayouts)
+             #if ($lay_item.isHidden())
+                   #if ($lay_item.getFriendlyURL() == "/footer-links")
+                     
+                     #foreach ($child in $lay_item.getChildren())
+                     ##$company_url
+						#if($child.getName($locale) != "Mobile")
+                           <a href="/$userLanguageId$child.getFriendlyURL()" $child.getTarget()>$child.getName() </a>
+						#end
+                     #end   
+                   #end
+             #end    
+        #end 
+		#set ($date = $dateUtil)
+        #set ($current_time = $date.getCurrentDate())
+        #set ($the_year = $date.getCurrentDate("yyyy", $locale))	
+        <span>#language ("sandp-lr62-theme.copyright.para1") $the_year #language ("sandp-lr62-theme.copyright.para2")</span>
+    </div>

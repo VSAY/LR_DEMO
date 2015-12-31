@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+#parse ($init)
+
+<html class="$root_css_class" dir="#language ("lang.dir")" lang="$w3c_language_id">
+
+<head>
+	<title>$the_title - $company_name</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta content="initial-scale=1.0, width=device-width" name="viewport" />
+
+	$theme.include($top_head_include)
+	
+	#if($page.getName($locale) == "Understanding Ratings")
+		<link rel="stylesheet" href="/sandp-lr62-theme/fonts/font-awesome.min.css" media="screen" />
+	
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="/sandp-lr62-theme/js/bootstrap.min.js" charset="utf-8"></script>
+	#else
+		<link rel="stylesheet" href="/sandp-lr62-theme/fonts/font-awesome.min.css" media="screen" />
+		<link rel="stylesheet" href="/sandp-lr62-theme/css/bootstrap.min.css" media="screen" />
+		
+		<link rel="stylesheet" href="/sandp-lr62-theme/css/sp-core.min.css" media="screen"/>
+		<link rel="stylesheet" href="/sandp-lr62-theme/css/scenario-builder/promo-page.css" media="screen"/>
+		  
+		<link rel="stylesheet" href="/sandp-lr62-theme/css/bjqs.min.css" media="screen" />
+		  
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/masonary.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/imagesloaded.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/bootstrap.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/gallery-y-common-infinite-scroll.js"></script>
+		<script language="JavaScript1.1" src="https://assets.delvenetworks.com/player/embed.js" type="text/javascript" ></script> 
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/spratings.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/jquery.cookie.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/jquery.validate.min.js"></script>	
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/jquery.treeview.min.js"></script>
+		#if($page.getName($locale) != "Bank Credit Scenario Builder-2" && $page.getName($locale) != "Corporate Credit Scenario Builder-2" && $page.getName($locale) != "Insurance Credit Scenario Builder-2" && $page.getName($locale) != "U.S. Local Government Scenario Builder-2")
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/custom.min.js"></script>
+		#end
+		<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/bjqs-1.3.min.js"></script>
+	#end
+	
+	
+	
+	
+	## Analytics header code
+	#parse ("$full_templates_path/adobe_dtm_header.vm")
+
+</head>
+
+   #set($sign_in_url = $sign_in_url+"&redirect="+$themeDisplay.getURLCurrent())
+	
+<body class="$css_class">
+
+#if($permissionChecker.isSignedIn())
+#set($user = $permissionChecker.getUser())
+#set($userLanguageId = $user.getLanguageId())
+#else
+#set($userLanguageId = "en_US")
+#end
+
+#set($userLanguageId = $themeDisplay.getLanguageId())
+
+#set($confRolesInProps = $propsUtil.get("spratings.portal.docbar.view.roles").split(","))
+#set($isShowDocBar = false)
+#if($is_signed_in)
+#foreach( $usrRole in $user.getRoles()) 
+  #if($stringUtil.equalsIgnoreCase($usrRole.getName(), "Administrator"))
+     #set($isShowDocBar = true)
+     #break
+  #else
+    #foreach( $configRole in $confRolesInProps)     
+      #set($roleLocalService = $serviceLocator.findService("com.liferay.portal.service.RoleLocalService"))
+      #set($siteViewRole = $roleLocalService.getRole($company_id, $configRole))      
+      #if($!siteViewRole) 
+         #set($isShowDocBar = true)
+        #break
+      #end
+    #end
+  #end
+#end
+#end
+#set($ausCurUrl = $themeDisplay.getURLCurrent())
+#set($ausCurUrl = $ausCurUrl.replace("en_US","en_AU"))
+
+<!--<a href="#main-content" id="skip-to-content">#language ("skip-to-content")</a>-->
+## We will remove banner include after Hard launch
+#parse ("$full_templates_path/banner.vm")
+
+$theme.include($body_top_include)
+
+<div>
+	<div class="container-fluid wrapper">
+		<header id="banner" role="banner">
+			<div class="heading">
+				<h1 class="site-title">
+					<a class="$logo_css_class" href="/$userLanguageId#language ("sprating.home.url")" title="#language_format ("go-to-x", [$site_name])">
+						<img alt="$logo_description" height="44" src="$images_folder/sp-logo.png" width="199" />
+	
+						#if ($show_site_name)
+							<!--  <span class="site-name" title="#language_format ("go-to-x", [$site_name])">
+								$site_name
+							</span> -->
+						#end
+					</a>
+				</h1>
+			</div>	
+			
+			
+			<div id="searchPanel">
+			<section class="user-area">
+			<!--ul class="nav nav-pills logged-out"> 
+				<li><a href="#"><i class="fa fa-caret-right"></i> Register</a></li> 
+				<li class="signin"><a href="#"><i class="fa fa-sign-in"></i> Login</a></li> 
+			</ul-->
+			<div class="searchouter">
+				<div class="searchcontainre">
+				
+				#set ($myPortletId = "spratingssearchportlet_WAR_spratingsgenericportlet")
+				$velocityPortletPreferences.setValue("portletSetupShowBorders", "false") 
+				$velocityPortletPreferences.setValue("displayStyle", "1")
+				$theme.runtime($myPortletId, "", $velocityPortletPreferences.toString())
+				$velocityPortletPreferences.reset()
+					
+		<nav class="utility-nav">
+			<ul class="nav nav-pills searchLinks">
+                <!-- Region dropdown START -->
+                <li class="dropdown language-picker">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Global <b class="caret"></b></a>
+                <ul class="dropdown-menu language-picker">
+                                
+                                <li class="dropdown-header">Latin America</li>
+                                
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.la.brazil.url")">#language ("spratings.header.global.la.brazil")</a>
+                                
+                                </li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.la.colombia.url")">#language ("spratings.header.global.la.colombia")</a>
+                                
+                                </li>
+                                
+                                <li class="dropdown-header"> #language ("spratings.header.global.europe")</li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.europe.france.url")">#language ("spratings.header.global.europe.france")</a>
+                                
+                                </li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.europe.italy.url")">#language ("spratings.header.global.europe.italy")</a>
+                                
+                                </li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.europe.russia.url")">#language ("spratings.header.global.europe.russia")</a>
+                                
+                                </li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.europe.turkey.url")">#language ("spratings.header.global.europe.turkey")</a>
+                                
+                                </li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.europe.germany.url")">#language ("spratings.header.global.europe.germany")</a>
+                                
+                                </li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.europe.poland.url")">#language ("spratings.header.global.europe.poland")</a>
+                                
+                                </li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.europe.spain.url")">#language ("spratings.header.global.europe.spain")</a>
+                                
+                                </li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.europe.ukraine.url")">#language ("spratings.header.global.europe.ukraine")</a>
+                                
+                                </li>                       
+                                
+                                <li class="dropdown-header"> #language ("spratings.header.global.ap")</li>
+                                <li>
+                                <a href="$ausCurUrl">#language ("spratings.header.global.ap.australia")</a>
+                                
+                                </li>
+                                <li>
+                               <a target="_blank" href="#language ("spratings.header.global.ap.india.url")">#language ("spratings.header.global.ap.india")</a>
+                                
+                                </li>
+                                <li>
+                               <a target="_blank" href="#language ("spratings.header.global.ap.china.url")">#language ("spratings.header.global.ap.china")</a>
+                                
+                                </li>
+                                <li>
+                               <a target="_blank" href="#language ("spratings.header.global.ap.southKorea.url")">#language ("spratings.header.global.ap.southKorea")</a>
+                                
+                                </li>
+                                
+                                <li class="dropdown-header"> #language ("spratings.header.global.me")</li>
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.me.gcc.url")">#language ("spratings.header.global.me.gcc")</a>
+                                
+                                </li>
+                                
+                                <li>
+                                <a target="_blank" href="#language ("spratings.header.global.me.israel.url")">#language ("spratings.header.global.me.israel")</a>
+                                
+                                </li>
+                                
+                                
+                                <li>
+                                <a class="africa-link" target="_blank" href="#language ("spratings.header.global.africa.url")"> #language ("spratings.header.global.africa")</a>
+                                
+                                </li>
+                                
+
+                </ul>
+                </li>
+                <!-- Region dropdown END -->
+                
+                 #set($registerURL = "/$userLanguageId#language ('sprating.register.url')?redirect=$themeDisplay.getURLCurrent()")
+                 #if($is_signed_in)
+						<li class="multiLevel"><a onclick="showSubMenu()"><i class="fa fa-caret-right"></i> <span>$user_name</span></a>
+						<ul id="cpwdId" class="subglobal" style="display: none;">
+								<li><a href="/$userLanguageId#language ("sprating.preferences.url")">Preferences</a></li> 
+								<!-- <li><a href="#language ("sprating.changepassword.url")">Change Password</a></li> --> 
+						</ul>
+						</li> 
+						<li><a href="/c/portal/logout">Logout</a></li>
+				#else
+						<li><a id="registerHrefId" href="$registerURL"><i class="fa fa-caret-right"></i> Register</a></li> 
+						<li class="signin"><a href="$sign_in_url"><i class="fa fa-sign-in"></i> Login</a></li> 
+				#end	
+          </ul>
+      </nav>
+					
+				</div>
+			</div>
+			</section>
+		</div>		
+		</header>
+	</div>
+	
+	#if($is_signed_in)		
+		 	#if ($isShowDocBar)
+			  	#dockbar()		
+		    #end
+	#end
+	
+	
+	<div class="container-fluid nav-wrapper">
+	
+			#if ($has_navigation || $is_signed_in)
+				#parse ("$full_templates_path/navigation.vm")
+			#end
+	</div>
+</div>
+<div class="container-fluid wrapper spratings">
+	<div id="content">
+
+		<div>
+			#if ($selectable)
+				$theme.include($content_include)
+			#else
+				$portletDisplay.recycle()
+	
+				$portletDisplay.setTitle($the_title)
+	
+				$theme.wrapPortlet("portlet.vm", $content_include)
+			#end
+		</div>
+	</div>
+	
+	<footer id="footer" class="site-footer-container" role="contentinfo">
+		  #if ($has_navigation)
+	       #parse ("$full_templates_path/footer_navigation.vm")
+	      #end
+	</footer>
+	
+</div>
+
+$theme.include($body_bottom_include)
+
+$theme.include($bottom_include)
+
+## Analytics footer code
+#parse ("$full_templates_path/adobe_dtm_footer.vm")
+
+
+<!--[if lt IE 9]>
+  		<script src="/sandp-lr62-theme/js/html5.js"></script>
+  		<script src="/sandp-lr62-theme/js/html5shiv.min.js"></script>
+	<![endif]-->
+
+<script language="text/javascript">
+		if(!window.console || typeof console === "undefined") {
+  			var console = { log: function (logMsg) { } };
+		}
+		$(window).load(function(){
+		$( "body" ).on( "click", function() { });
+		$( "body" ).trigger( "click" );  });
+		
+</script>
+
+</body>
+	
+</html>

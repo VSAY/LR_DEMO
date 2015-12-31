@@ -1,0 +1,89 @@
+#set($groupService = $serviceLocator.findService("com.liferay.portal.service.GroupLocalService"))
+#set($layoutLocalService = $serviceLocator.findService("com.liferay.portal.service.LayoutLocalService"))
+#set($layoutService = $serviceLocator.findService("com.liferay.portal.service.LayoutService"))
+<nav>
+	<div class="dropdown-nav">
+		<div class="dropdown-wrapper">
+			#set ($VOID = $velocityPortletPreferences.setValue("portletSetupShowBorders", "false"))
+			$theme.runtime("notifications_WAR_notificationsportlet", "", $velocityPortletPreferences.toString())
+			#set ($VOID = $velocityPortletPreferences.reset())
+			<ul>
+				#if (!$is_signed_in)
+
+					#set ($home_url = "/")
+  				<li>
+  					<a href="$home_url">$languageUtil.get($pageContext, "home")</a>
+  				</li>
+
+				#else
+					#set ($home_url = "/group/landing")
+                    #if ($themeDisplay.isImpersonated())
+                        <li>
+                            <a href="$home_url?doAsUserId=$htmlUtil.escapeURL($themeDisplay.getDoAsUserId())">$languageUtil.get($pageContext, "netspace-home")</a>
+                        </li>
+                    #else
+                        <li>
+                            <a href="$home_url">$languageUtil.get($pageContext, "netspace-home")</a>
+                        </li>
+                    #end
+
+				#end
+
+				<li class="dropdown">
+					#set($asGroup = $groupService.getGroup($company.getCompanyId(),"About Us"))
+					#set($groupUrl = $asGroup.getFriendlyURL())
+					#set($layouts = $layoutLocalService.getLayouts($asGroup.getGroupId(), false, 0))
+					<a href="#">$languageUtil.get($pageContext, "about-us")</a>
+					<ul>
+						#foreach( $layout in $layouts)
+							#if (!$layout.isHidden())
+								<li><a href="$layout.getRegularURL($request)" $layout.getTarget()>$layout.getName($locale)</a></li>
+							#end
+						#end
+					</ul>
+				</li>
+				#set($program = $groupService.getGroup($company.getCompanyId(),"Program"))
+				#if ($groupService.hasUserGroup($user.getUserId(),$program.getGroupId()))
+					<li class="dropdown">
+						#set($groupUrl = $program.getFriendlyURL())
+						#set($layouts = $layoutLocalService.getLayouts($program.getGroupId(), true, 0))
+						<a href="#">$languageUtil.get($pageContext, "program")</a>
+						<ul>
+							#foreach( $layout in $layouts)
+								#if (!$layout.isHidden())
+									<li><a href="$layout.getRegularURL($request)" $layout.getTarget()>$layout.getName($locale)</a></li>
+								#end
+							#end
+						</ul>
+					</li>
+				#end
+				#set($offerings = $groupService.getGroup($company.getCompanyId(),"Offerings"))
+				#if ($groupService.hasUserGroup($user.getUserId(),$offerings.getGroupId()))
+					<li class="dropdown">
+
+						#set($groupUrl = $offerings.getFriendlyURL())
+						#set($layouts = $layoutLocalService.getLayouts($offerings.getGroupId(), true, 0))
+						<a href="#">$languageUtil.get($pageContext, "offerings")</a>
+						<ul>
+							#foreach( $layout in $layouts)
+								#if (!$layout.isHidden())
+									<li><a href="$layout.getRegularURL($request)" $layout.getTarget()>$layout.getName($locale)</a></li>
+								#end
+							#end
+						</ul>
+					</li>
+				#end
+
+				#set($community-name = $theme_display.getThemeSetting('community-name'))
+				#set($communities = $groupService.getGroup($company.getCompanyId(),$community-name))
+				#set($community-homePage = $theme_display.getThemeSetting('community-homePage'))
+				#if ($groupService.hasUserGroup($user.getUserId(),$communities.getGroupId()))
+					<li>
+						<a href="/group$communities.friendlyURL/$community-homePage">$languageUtil.get($pageContext, $communities.name)</a>
+					</li>
+				#end
+            </ul>
+		</div>
+	</div>
+
+</nav>

@@ -1,0 +1,49 @@
+<style>
+.bannerHeader{
+    background-color:#eb2c38;
+    color:white;
+    clear:both;
+    text-align:left;
+    padding:5px;
+
+}
+.bannerHeader h7{
+	font-size: 12px;
+	font-weight: bold;
+	padding-left: 70px;
+    padding-right: 30px;
+}
+.bannerHeaderButton{
+    background-color:#eb2c38;
+    color:white;
+    clear:both;
+    padding:1px;
+    border: 1px solid white;
+    border-radius: 0.3em;
+    font-size: small;
+}
+.bannerHeaderButton h7{
+	font-size: 10px;
+	font-weight: bold;
+	padding-left: 6px;
+    padding-right: 6px;
+}
+.bannerFeedbackButton h7{
+	font-size: 10px;
+	font-weight: bold;
+	padding-left: 3px;
+    padding-right: 3px;
+}
+.bannerFeedbackButton{
+    background-color:black;
+    color:white;
+    padding:2px;
+    border: 0px;
+    border-radius: 0.3em;
+}
+</style>
+<div id="bannerHeader" class="bannerHeader">
+<h7>Welcome to the new SPRatings.com BETA site.</h7>
+<button id="bannerHeaderButton" class="bannerHeaderButton" onclick="location.href='http://www.spratings.com'"> <h7>Return to current SPRatings.com</h7></button>
+<button id="bannerFeedbackButton" class="bannerFeedbackButton" onclick="javascript:window.location='mailto:creditmatters@standardandpoors.com'"><h7>Feedback</h7></button>
+</div>

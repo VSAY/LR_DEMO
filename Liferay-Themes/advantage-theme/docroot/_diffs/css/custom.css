@@ -1,0 +1,5226 @@
+/*============================================
+Cisco Networking Academy - Bullet Train Styles
+============================================*/
+
+/*load uniform.default.css*/
+
+@import url(uniform.default.css);
+
+/*===
+Reset
+===*/
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,  footer, header, hgroup, 
+menu, nav, section, summary, time, mark, audio, video {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-size:100%;
+	vertical-align:baseline;
+	background:transparent;
+}                  
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+    display:block;
+}
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+ol, ul {
+	list-style: none;
+}
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+
+/*========
+Typography
+========*/
+
+@font-face {
+    font-family: 'CiscolightRegular';
+    src: url('../webfonts/ciscolig-webfont.eot');
+    src: url('../webfonts/ciscolig-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../webfonts/ciscolig-webfont.woff') format('woff'),
+         url('../webfonts/ciscolig-webfont.ttf') format('truetype'),
+         url('../webfonts/ciscolig-webfont.svg#CiscolightRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*=======
+SASS Vars
+=======*/
+
+$site-width: 940px;
+
+$purple: #a12197;
+
+/*=========
+SASS Mixins
+=========*/
+
+@mixin border-radius($radius) {
+	-moz-border-radius: $radius;
+	-o-border-radius: $radius;
+	-ms-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+}
+
+/*just in case radii are non-uniform*/
+@mixin custom-border-radius($r1, $r2, $r3, $r4) { 
+	-moz-border-radius: $r1 $r2 $r3 $r4;
+	-o-border-radius: $r1 $r2 $r3 $r4;
+	-ms-border-radius: $r1 $r2 $r3 $r4;
+	-webkit-border-radius: $r1 $r2 $r3 $r4;
+	border-radius: $r1 $r2 $r3 $r4;
+}
+
+@mixin simple-linear-gradient($direction, $start, $end) {
+	background: -moz-linear-gradient($direction, $start, $end);
+	background: -o-linear-gradient($direction, $start, $end);
+	background: -webkit-linear-gradient($direction, $start, $end);
+	background: linear-gradient($direction, $start, $end);
+  /* default is top to bottom */
+  $gradient_type:0;
+  @if $direction == left {
+   $gradient_type :1
+  }
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='#{$end}', GradientType='#{$gradient_type}');
+}
+
+@mixin rainbow($direction, $start, $end) {
+	background: url(../images/custom/rainbow.png) center center repeat-y;
+	background: url(../images/custom/rainbow.png) center center repeat-y, -moz-linear-gradient($direction, $start, $end);
+	background: url(../images/custom/rainbow.png) center center repeat-y, -o-linear-gradient($direction, $start, $end);
+	background: url(../images/custom/rainbow.png) center center repeat-y, -webkit-linear-gradient($direction, $start, $end);
+	background: url(../images/custom/rainbow.png) center center repeat-y, linear-gradient($direction, $start, $end);
+	/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='#{$end}');*/
+
+}
+
+@mixin box-shadow($x, $y, $offset, $color) {
+	-moz-box-shadow: $x $y $offset $color;
+	-ms-box-shadow: $x $y $offset $color;
+	-o-box-shadow: $x $y $offset $color;
+	-webkit-box-shadow: $x $y $offset $color;
+	box-shadow: $x $y $offset $color;
+}
+
+/*clearfix*/
+@mixin clearfix {
+	display: inline-block;
+	
+	&:before,
+	&:after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+		overflow: hidden;
+	}
+	& { display: block; }
+}
+
+/*Cisco Light*/
+
+@mixin ciscolight($size, $transform) {
+	font-family: "Arial", sans-serif;
+	font-weight: normal;
+	font-size: $size;
+	text-transform: $transform;
+}
+
+@mixin trueciscolight($size, $transform) {
+	font-family: "CiscolightRegular";
+	font-weight: normal;
+	font-size: $size;
+	text-transform: $transform;
+}
+
+/*====
+Basics
+====*/
+
+body {
+	color: #505050;
+	font-family: "Arial", sans-serif;
+	font-size: 12px;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+hr {
+  border-style: none;
+  border-top-style: solid;
+  margin: 10px 0;
+}
+
+body.home {
+	/*
+	background: #fff url('../images/custom/body-bg.png') left top repeat-x;
+	*/
+	/*
+	background: #fff none left top repeat-x;
+  */
+}
+
+/*====
+Layout
+====*/
+
+html, body, #wrapper {
+	height: 100%;
+	width: 100%;
+}
+
+body.home.page-maximized #content,
+#content {
+	width: $site-width;
+	margin: 0 auto;
+}
+
+body.home {
+	#content {
+		width: 100%;
+		margin: 0;
+	}
+}
+
+
+
+.netacad-home-public {	
+	.portlet,
+	.portlet-borderless-container {
+		padding: 0;
+	}
+}
+
+.columns-1 {
+	.portlet,
+	.portlet-borderless-container {
+		padding: 0;
+	}
+}
+
+.portlet-layout.top-row,
+.portlet-layout.bottom-row {
+	width: $site-width;
+	margin: 0 auto;
+}
+
+.aui-dialog-iframe-popup {
+	height: auto !important;
+	width: auto !important;
+}
+
+/* tags */
+a {
+	color: #2ba2ff;
+	text-decoration: none;
+	
+	&.dead {
+		color: #333;
+	}
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+em { font-style: normal; }
+
+blockquote, ul, ol, dl {
+	margin: 0;
+}
+
+h4 {
+	margin-top: 1em;
+}
+
+ol, ul, dl {
+	margin-left: 0;
+}
+
+.portlet-msg-info {
+	clear: both;
+}
+
+/* hidden elements */
+#skip-to-content, #sign-in, .portlet-topper-toolbar .portlet-icon-back {
+	display: none;
+}
+
+.portlet-column-content.empty {
+/*TEMP	padding: 0;*/
+}
+
+.lfr-token {
+  background-color: #80d2f4;
+  border-color: #80d2f4;
+  color: #fff;
+  font-size: 13px;
+}
+.lfr-token:hover {
+  background-color: #69c43a;
+  border-color: #69c43a;
+}
+
+.columns-1 p {
+  line-height: 1.6;
+}
+
+/*=============
+Masthead/Banner
+=============*/
+
+#banner {
+	@include rainbow(left, #46b2e2, #8cc766);
+	@include box-shadow(0, 1px, 9px, rgba(0,0,0,0.25));
+}
+
+.ie9 #banner {
+	@include box-shadow(0, 1px, 11px, rgba(0,0,0,0.25));
+
+}
+
+#heading {
+	height: 85px;
+	margin-bottom: 2px;
+	text-align: center;
+	border-top: 1px solid #c7c7c7;
+	background: #fff;
+	
+	.heading-content {
+		margin: 0 auto;
+		position: relative;
+		text-align: left;
+		width: $site-width;
+		@include clearfix();
+	}
+	
+	.site-title, 
+	.page-title { 
+		display: none; 
+	}
+	
+	.company-title {
+		float: left;
+		margin: 21px 0 0 0;
+	}
+	
+	.cisco-logo {
+		background: url(../images/custom/mind-wide-open.png) left top no-repeat;
+		width: 198px;
+		height: 25px;
+		position: absolute;
+		text-indent: -9999em;
+		bottom: 3px;
+		right: 0;
+		z-index: 2;
+	}
+}
+
+/*==== 
+Footer 
+====*/
+
+#footer {
+  @include rainbow(left, #46b2e2, #8cc766);
+  padding-top: 2px;
+  clear: both;
+  height: 80px;
+  
+  .footer-wrap {
+  	background: #fff;
+  	height: 100%;
+  }
+
+  .footer-content {
+    margin: 0 auto;
+    width: $site-width;
+    height: 100%;
+    position: relative;
+  }
+
+  .links {
+    color: #404040;
+    list-style: none;
+    position: absolute;
+    bottom: 18px;
+    left: 0;
+
+    li {
+      float: left; 
+      margin-right: 9px;
+      padding-right: 9px;
+      border-right: 1px solid #404040;
+      
+      &:last-child { border-right: none; }
+
+      a { color: #404040; }
+    }
+  }
+  
+  .netspace-text {
+    background: url(../images/custom/netspace-text.png) left top no-repeat;
+    width: 106px;
+    height: 30px;
+    position: absolute;
+    text-indent: -9999em;
+    bottom: 14px;
+    right: 0;
+  }
+}
+
+/*=============
+Site Navigation
+=============*/
+
+.dropdown-nav {
+  color: #404040;
+  width: 100%;
+  background: #fff;
+	@include simple-linear-gradient(top, #fff, #f3f3f3); 
+
+  .dropdown-wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: $site-width;
+
+    > ul {
+      list-style: none;
+      @include clearfix();
+
+      > li {
+      	display: block;
+      	float: left;
+        position: relative;
+        padding: 13px 0 14px 0;
+        @include ciscolight(16px, none);
+        border-right: 1px solid #dadada;
+        
+        &:first-child {
+           border-left: 1px solid #dadada;
+        }
+
+        &:hover {
+          background: #fbfbfb;
+          color: #333;
+
+          > a {
+            color: #333;
+          }
+
+          ul {
+            display: block;
+          }
+        }
+
+        &.dropdown {
+          > a {
+            background: url(../images/custom/dropdown-arrow.png) 90% center no-repeat;
+            padding: 0 35px 0 16px;
+          }
+        }
+
+        > a {
+          color: #404040;
+          display: block;
+          padding: 0 16px;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+
+      /* second level */
+      ul, div {
+        background: #fbfbfb;
+        border: 1px solid #d9d9d9;
+        border-top: 1px solid #c2c2c2;;
+        display: none;
+        font-size: 14px;
+        left: -1px;
+        list-style: none;
+        min-width: 250px;
+        padding: 0;
+        position: absolute;
+        top: 43px;
+        z-index: 100;
+        font-family: "Arial", sans-serif;
+
+        li {
+          display: block;
+
+          &:hover {
+            background: #f8f8f8;
+            text-decoration: none;
+          }
+
+          a {
+          	color: #404040;
+            display: block;
+            line-height: 24px;
+            padding: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+input[type="submit"], input[type="button"], input[type="reset"], button {
+	background: url("../images/custom/button-bg.png") center center repeat-x;
+	color: #fff;
+	text-shadow: 0 -1px 0 #000;
+	
+}
+
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover {
+	background: url("../images/custom/btn-bg-roll.png") center center repeat-x;
+	color: #fff;
+	text-shadow: 0 -1px 0 #000;
+
+}
+
+/*Form Elements*/
+
+form {
+	.aui-fieldset-legend {
+		@include ciscolight(16px, normal);
+		color: $purple;
+		
+		.aui-legend {
+			border-bottom: none;
+		}
+	}
+
+	.aui-field-label, .aui-field-label-inline-label {
+		font-size: 12px;
+		font-weight: normal;
+	}
+
+	input[type="text"], 
+	input[type="password"],
+	input[type="email"] {
+		margin: 4px 0 5px 0;
+		padding: 6px 8px;
+		font-size: 13px;
+		color: #707070;
+		background: #f0f0f0;
+		border: none;
+		box-shadow: 1px 1px 2px #bbb inset;
+		border-radius: 4px;
+	}
+	
+	.aui-button-input,
+	.aui-button-input-submit {
+		padding: 8px 16px;
+		background: url("../images/custom/button-bg.png") center center repeat-x;
+		color: #fff;
+		text-shadow: 0 -1px 0 #000;
+		border: none;
+	}
+
+	.aui-form-validator-error-container .aui-field-element {
+		background-image: none;
+	}
+}
+
+/* form elements not in a form */
+.aui-field-label, .aui-field-label-inline-label {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+
+/*=========
+Custom Uniform
+==========*/
+
+/* Checkbox */
+
+div.checker {
+  width: 19px;
+  height: 19px;
+}
+
+div.checker input {
+  width: 19px;
+  height: 19px;
+}
+
+div.checker span {
+  background-position: -1px -68px;
+  height: 19px;
+  width: 19px;
+}
+
+div.checker:active span, 
+div.checker.active span {
+  background-position: -1px -68px;
+}
+
+div.checker.focus span,
+div.checker:hover span {
+  background-position: -1px -68px;
+}
+
+div.checker.focus:active span,
+div.checker:active:hover span,
+div.checker.active:hover span,
+div.checker.focus.active span {
+  background-position: -1px -68px;
+}
+
+div.checker span.checked {
+  background-position: -19px -68px;
+}
+
+div.checker:active span.checked, 
+div.checker.active span.checked {
+  background-position: -19px -68px;
+}
+
+div.checker.focus span.checked,
+div.checker:hover span.checked {
+  background-position: -19px -68px;
+}
+
+div.checker.focus:active span.checked,
+div.checker:hover:active span.checked,
+div.checker.active:hover span.checked,
+div.checker.active.focus span.checked {
+  background-position: -19px -68px;
+}
+
+div.checker.disabled span,
+div.checker.disabled:active span,
+div.checker.disabled.active span {
+  background-position: -37px -68px;
+}
+
+div.checker.disabled span.checked,
+div.checker.disabled:active span.checked,
+div.checker.disabled.active span.checked {
+  background-position: -55px -68px;
+}
+
+/* Radio */
+
+div.radio {
+  width: 18px;
+  height: 18px;
+}
+
+div.radio input {
+  width: 18px;
+  height: 18px;
+}
+
+div.radio span {
+  height: 18px;
+  width: 18px;
+  background-position: -1px -86px;
+}
+
+div.radio:active span, 
+div.radio.active span {
+  background-position: -18px -86px;
+}
+
+div.radio.focus span, 
+div.radio:hover span {
+  background-position: -1px -86px;
+}
+
+div.radio.focus:active span,
+div.radio:active:hover span,
+div.radio.active:hover span,
+div.radio.active.focus span {
+  background-position: -1px -86px;
+}
+
+div.radio span.checked {
+  background-position: -19px -86px;
+}
+
+div.radio:active span.checked,
+div.radio.active span.checked {
+  background-position: -19px -86px;
+}
+
+div.radio.focus span.checked, div.radio:hover span.checked {
+  background-position: -19px -86px;
+}
+
+div.radio.focus:active span.checked, 
+div.radio:hover:active span.checked,
+div.radio.focus.active span.checked,
+div.radio.active:hover span.checked {
+  background-position: -19px -86px;
+}
+
+div.radio.disabled span,
+div.radio.disabled:active span,
+div.radio.disabled.active span {
+  background-position: -37px -86px;
+}
+
+div.radio.disabled span.checked,
+div.radio.disabled:active span.checked,
+div.radio.disabled.active span.checked {
+  background-position: -55px -86px;
+}
+
+
+
+/*========
+Main Rotor
+========*/
+
+#main-rotor {
+	height: 288px;
+	margin: 18px 0;
+	@include border-radius(8px);
+	background: #fafafa;
+	position: relative;
+	overflow: hidden;
+}
+
+#slides {
+	height: 288px;
+	position: relative;
+  margin: 0;
+  list-style-type: none;	
+	li {
+		display: none;
+		height: 100%;
+		width: 940px;
+		position: relative;
+		@include clearfix();
+		@include border-radius(8px);		
+		
+		&:first-child {
+			display: block;
+		}
+		
+		em {
+			width: 300px;
+			position: absolute;
+			top: 55px;
+			left: 30px;
+			color: #fff;
+			text-shadow: 0 1px 1px #666;
+			font-style: normal;
+		}
+		
+		h2 {
+			margin-bottom: 10px;
+			@include ciscolight(30px, none);
+		}
+		
+		p {
+			line-height: 1.3;
+			margin-bottom: 10px;
+			@include ciscolight(16px, none);	
+		}
+		
+		a {
+			display: block;
+			float: left;
+			padding: 10px 15px;
+			background: url("../images/custom/button-bg.png") center center repeat-x;
+			font-weight: bold;
+			color: #fff;
+			text-shadow: 0 -1px 0 #000;
+			border: none;
+			@include border-radius(4px);
+			
+			&.video-link {
+				height: 18px;
+				padding: 0;
+				padding-right: 23px;
+				background: transparent url("../images/custom/video-play.png") right top no-repeat;
+				
+				span {
+					display: block;
+					padding: 3px 5px;
+					@include simple-linear-gradient(top, #555, #000);
+					@include border-radius(2px);
+				}
+			}
+		}
+		
+		a.video-link {}
+	}
+}
+
+#main-slideshow-controls {
+	width: $site-width;
+	background: rgba(0,0,0,0.8);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	@include custom-border-radius(0, 0, 5px, 5px);
+	text-align: center;
+	z-index: 10;
+			
+	a {
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		margin: 8px 2px;
+		background: url('../images/custom/rotor-states.png') left bottom no-repeat;
+		text-indent: -9999px;
+					
+		&.activeSlide {
+			background-position: left top;
+		}
+	}
+}
+
+.ie8 #main-slideshow-controls {
+	background: #000;
+}
+
+/*=======
+Login Box
+=======*/
+
+#login {
+	width: 210px;
+	height: 230px;
+	padding: 15px 15px;
+	position: absolute;
+	top: 24px;
+	right: 20px;
+	background: #fff;
+	box-shadow: 0 0 5px #666;
+	z-index: 100;
+	
+	.portlet-topper {
+		@include clearfix();
+	}
+	
+	.portlet {
+		padding: 0;
+		margin-bottom: 0;
+	}
+	
+	.portlet-content {
+		padding: 0;
+    .portlet-msg-error {
+      display: none;
+    }
+	}
+
+	.portlet-title {
+		margin-bottom: 5px;
+		color: #911f94;
+		@include ciscolight(19px, none);
+	}
+	
+	.aui-form .portlet-msg-error {
+	 display: block;
+	 font-size: 10px;
+	 border: none;
+	 background-color: transparent;
+	 color: #900;
+	 background-position: 0 50%;
+	 padding: 2px 0 2px 20px;
+	 margin-bottom: 3px;
+	 font-weight: normal!important;
+	}
+	
+	fieldset,
+	aui-fieldset {
+		margin-bottom: 0;
+		
+		.aui-field-content,
+		.aui-field-row,
+		.aui-field-button-holder,
+		.aui-field-wrapper-content {
+			margin: 0;
+		}
+		
+		.aui-field-label,
+		.aui-field-label-inline-label {
+			font-weight: normal;
+		}
+		
+		.aui-field-choice {
+			/* position: absolute; */
+		}
+		
+		.taglib-captcha { 
+			margin: 0;
+			
+			img {
+				margin-bottom: 3px;
+			} 
+		}
+	}
+	
+	.aui-button-holder {
+		margin: 0;
+		padding: 0;
+		float: right;
+	}
+	
+	.navigation {
+		position: absolute;
+		bottom: 15px;
+		left: 15px;
+		
+		li {
+			display: inline;
+		}
+		
+		a.taglib-icon {
+			font-size: 11px;
+			text-decoration: none;
+			
+			&:hover {
+				text-decoration: underline;
+			}
+		
+			img {
+				display: none;
+			}
+		}
+	}
+	
+	label {
+		font-size: 11px;
+	}
+
+	input[type="text"], 
+	input[type="password"] {
+		width: 189px;
+		margin: 4px 0 5px 0;
+		padding: 6px 8px;
+		font-size: 13px;
+		font-style: italic;
+		color: #707070;
+		background: #f0f0f0;
+		border: none;
+		box-shadow: 1px 1px 2px #bbb inset;
+		border-radius: 4px;
+	}
+	
+	.aui-button-input,
+	.aui-button-input-submit {
+		padding: 8px 16px;
+		background: url("../images/custom/button-bg.png") center center repeat-x;
+		color: #fff;
+		text-shadow: 0 -1px 0 #000;
+		border: none;
+	}
+
+  .aui-form-validator-error-container .aui-field-element {
+    background-image: none;
+  }
+  
+  .aui-form-validator-error-container .aui-form-validator-message.required {
+    display: none;
+  }
+
+  .aui-form-validator-error-container input {
+    background: #f0f0f0 url(../images/messages/error.png) no-repeat scroll 98% 50%;
+  }
+  
+  &.error {
+    height: 210px;
+    top: 10px;
+  }
+  
+  &.captcha {
+    height: 236px;
+    top: 10px; 
+  }
+  
+  &.error.captcha {
+    height: 236px;
+    top: 10px;  
+  }
+}
+
+/* do not display if user is logged in */
+.signed-in #login {
+  display: none;
+}
+
+.portlet-title-text {
+	cursor: auto;
+}
+
+/*ie8*/
+
+.ie8 #login input[type="text"], .ie8 #login input[type="password"] {
+	border: 1px solid #bbb;
+}
+
+
+/*=========
+Tout Images
+=========*/
+
+.tout-image {
+	position: relative;
+	float: left;
+}
+
+#main-tout-images em {
+	width: 180px;
+	padding: 20px;
+	position: absolute;
+	bottom: 0;
+	right: 20px;
+	background: #fff;
+	box-shadow: 0 0 5px #666;
+}
+
+#main-tout-images h3 {
+	@include ciscolight(18px, normal);
+	margin-bottom: 5px;
+	color: #505050;
+}
+
+#main-tout-images .tout-image {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	width: 300px;
+	height: 180px;
+	margin-left: 20px;
+	position: relative;
+	overflow: hidden;
+}
+
+#main-tout-images .tout-image:first-child {
+	margin-left: 0;
+}
+
+
+/*sub tout image*/
+
+.portlet-layout.middle-row {
+	@include simple-linear-gradient(left, #39b54a, #ccdb42);
+	
+	.middle-wrap {
+		margin: 6px 0;
+		background: #fff;
+		
+		.middle-inner {
+			width: $site-width;
+			margin: 0 auto;
+			@include clearfix();
+			
+			.portlet-column {
+				width: 223px !important;
+				padding: 10px;
+				border-left: 1px solid #e3e3e3;
+				
+				&:first-child { 
+					border-left: 0;
+					padding-left: 0;
+				}
+				
+				&:last-child { 
+					padding-right: 0;
+				}
+			}
+			
+			.portlet-column-content {
+				padding: 0;
+				
+				.portlet-body {
+					.portlet,
+					.portlet-borderless-container {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}	
+
+	.tout-image {
+		width: 100%;
+		position: relative;
+		
+		h3 {
+			margin-bottom: 15px;
+			color: $purple;
+			@include ciscolight(21px, normal);
+		}
+	}
+	
+	.base {
+		padding: 10px;
+		@include clearfix();
+	}
+
+	.gray { /*Academy Locator*/
+		padding: 15px;
+		background: #f8f8f8;
+		@include border-radius(5px);
+		@include box-shadow(0, 1px, 0, #ccc);
+		@include clearfix();
+	}
+	
+	.tout-body {
+		position: relative;
+		
+		p {
+			padding-right: 90px;
+			line-height: 1.6;
+			margin-bottom: 5px;
+		}
+		img {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+	}
+}
+
+.ie9 .journal-content-article .gray {
+  border-collapse: separate;
+}
+
+/*===========================
+Academy Map / success stories
+===========================*/
+
+.portlet-layout.middle-row-full {
+	margin: 20px 0;
+	background: #f2f2f2;
+
+	.middle-full-wrap {
+		width: $site-width;
+		margin: 0 auto;
+	}
+	
+	#success-stories {
+		.wrap {
+			@include clearfix();
+		}
+		
+		.intro-wrap {
+			float: left;
+			width: 205px;
+			margin-top: 20px;
+			
+			h3 {
+				@include ciscolight(18px, normal);
+				margin-bottom: 15px;
+			}
+			
+			p {
+				line-height: 1.5;
+				margin-bottom: 15px;
+			}
+			
+			a {
+				display: block;
+				float: left;
+				padding: 10px 15px;
+				background: url("../images/custom/button-bg.png") center center repeat-x;
+				font-weight: bold;
+				color: #fff;
+				text-shadow: 0 -1px 0 #000;
+				border: none;
+				@include border-radius(4px);
+			}
+		}
+		
+		#map {
+			margin-left: 0;
+			
+			a {
+				width: 12px;
+				height: 12px;
+			}
+		}
+		
+		#stories {
+			background: #fff;
+			margin-top: 10px;
+			
+			.story {
+				h4 {
+					margin-bottom: 14px;
+					font-size: 16px;
+					font-weight: normal;
+					color: $purple;
+				}
+				
+				p, a {
+					font-size: 12px;
+					line-height: 1.5;
+				}
+			}
+		}
+	}
+}
+
+/*=============
+System Portlets
+=============*/
+
+/*user management*/
+.netacad-user-profile-portlet {
+  .portlet-title {
+    margin-top: 15px;
+  }
+	.portlet-title-text {
+		@include ciscolight(24px, normal);
+		color: $purple;
+	}
+  
+  .portlet, .portlet-borderless-container {
+    padding: 0;
+  }
+	select#language {
+	 margin-bottom: 10px;
+	}
+	
+	#birthday {
+	 float: none;
+	 margin-bottom: 10px;
+	 @include clearfix();
+		.aui-datepicker-select-wrapper {
+			@include clearfix();
+			
+			& > div.selector {
+				float: left;
+				width: auto;
+				
+				span { width: 60px; }
+			}
+		}
+	}
+	#password1 {
+  	margin-bottom: 10px;
+  	
+	}
+	
+	.taglib-logo-selector {
+    text-align: left;
+	}
+
+  .portlet-topper {
+    margin-bottom: 15px;
+  }
+  
+  #uniqueNetacadId {
+    margin: 0 0 0 110px;
+  }
+  .portrait-icons {
+    text-align: center;
+    
+  }
+  .portrait-icons .edit-logo-link {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .portrait-icons .modify-link {
+    display: block;
+  }
+  
+  #uniqueNetacadId label.aui-field-label {
+    display: block!important;
+  }
+  
+  #CNAMSUserId {
+    margin: 10px 0 0 110px;
+  }
+  
+  #CNAMSUserId label.aui-field-label {
+    display: block!important;
+  }
+  
+  .aui-field-element input[type="text"] {
+    max-width: none!important;
+    width: 280px;    
+  }
+  
+  .aui-fieldset {
+    margin-bottom: 30px;
+  }
+  
+  .aui-field-content {
+    line-height: 16px;
+    
+  }
+
+}
+
+
+/*==============
+Content Portlets
+==============*/
+
+/*assuming the landing page template == all content*/
+.netacad-home-public,
+.netacad-landing {
+  .portlet-layout.bottom-row, /*content portlets on home page*/
+  .landing_page {
+  	.portlet, 
+  	.portlet-borderless-container {
+  		background: #f8f8f8;
+  		@include border-radius(5px);
+  		@include box-shadow(0, 1px, 0, #ccc);
+  		padding: 0;
+  		
+  		.portlet-topper {
+  			padding: 8px 8px 0 8px;
+  			@include clearfix();
+  		}
+  		
+  		.portlet-title, h3 {
+  			color: $purple;
+  			@include ciscolight(20px, normal);
+  		}
+  	}
+  }
+  
+  .portlet-layout.bottom-row {
+  	@include clearfix();
+  	margin-bottom: 20px;
+  	
+  	.portlet-column {
+  		display: block;
+  		float: left;
+  		width: 223px;
+  		margin-left: 15px;
+  		
+  		&:first-child {
+  			margin-left: 0;
+  		}
+  	}
+  
+  	.portlet-column-content {
+  		padding: 0;
+  	}
+  	
+  	.portlet,
+  	.portlet-borderless-container {
+  /* 		min-height: 235px; */
+  		margin-bottom: 0;
+  		padding: 15px;
+  		background: #f8f8f8;
+  		
+  		.portlet-topper {
+  			padding: 0;
+  		}
+  		
+  		.portlet-topper, h3 {
+  			padding-top: 15px;
+  			background: url("../images/custom/portlet-stripe-sm.png") left top no-repeat;
+  		}
+  	}
+  }
+}
+
+/*Omni Portlet*/
+.omni-portlet {
+	padding-top: 10px;
+  h1 {
+		@include ciscolight(24px, normal);
+		color: $purple;     
+		margin-bottom: 15px;
+  }
+	#loader-section {
+  	height: 15px;
+	}
+	&.portlet-borderless .portlet-borderless-container .portlet-borderless-bar {
+  	background-color: transparent;
+	}
+	
+	&.portlet-borderless .omni-portlet-wrapper {
+		border-radius: 0;
+	}
+	
+	&.portlet-borderless {
+		.aui-tabview-list .aui-tab:hover .aui-tab-label {
+			background: transparent;
+		}
+	}
+
+  .portlet-body .portlet-body {
+     background-color: #F8F8F8;
+     padding-bottom: 15px; 
+     border-bottom-left-radius: 5px;
+     border-bottom-right-radius: 5px;
+     box-shadow: 0 1px 0 #CCCCCC;  
+     min-height: 144px; 
+  }
+  .portlet-body .omni-portlet-wrapper {
+  	 margin: 15px 15px 0;
+     background-color: #fff;  
+     border-radius: 0;
+  	 @include clearfix();
+     position: relative;
+     padding: 13px;
+     
+     .portlet-body { padding: 15px; }
+
+     .data-container {
+       	border-right: none;
+       	float: left;
+       	height: 204px;
+       	width: 310px;
+       	border-top: 1px solid #ededed;
+       	overflow-y: scroll;
+       	
+    		.course-list {
+          height: auto;
+    		  overflow-y: hidden;
+    		}
+    		
+    		.institution-list {
+    		  height: auto;
+    		  overflow-y: hidden;
+    		}
+    		
+    		.course-list li, .institution-list li {
+    		  padding: 8px 2px 8px 2px;
+    		  border-bottom: 1px solid #ededed;
+    		  min-height: 42px;
+    		  line-height: 16px;
+    		  a {
+    		    display: block;
+    		    padding: 0 0 3px 0;
+    		    font-size: 13px;
+    		  }
+    		  a:hover {
+    		    background-color: transparent;
+    		  }
+    		  .course-name {
+      		  display: block;
+    		  }
+    		  .institution-name {
+      		  display: block;
+    		  }
+    		}
+
+     }
+	
+	 .actions {
+  		border-left: none;
+  		float: right;
+  		width: 242px;
+
+  		h4 { 
+  			padding: 10px 36px 10px 0;
+  			font-size: 16px; 
+  			font-weight: normal;
+  			border-top: 1px solid #ededed;
+  			border-bottom: 1px solid #ededed;
+  		  background: transparent url(../images/custom/omni/icn-actions.png) right center no-repeat;
+  		  margin-top: 0;
+  		}
+		
+  		li {
+  			padding: 5px 0;
+  		}
+	 }
+  }
+  
+	/*teach tab*/
+	.teach { 
+	 .aui-tabview-list { 
+  		@include simple-linear-gradient(left, #0068ad, #01a8ea);	
+  		.aui-tab-label { 
+  			border-right: 1px solid #3394ca; 
+  			text-shadow: -1px -1px #004c75;
+  		}
+  		.aui-tab-active .aui-tab-label {
+  			color: #0068ad;
+  			text-shadow: none;
+  			border-right: none;
+  		}
+		}
+  	.omni-portlet-wrapper {
+        h3 {
+    			@include ciscolight(20px, normal);
+    			margin: 0 0 10px 0;
+          color: #0068ad;
+        }
+
+      .intro {
+      	background: transparent url(../images/custom/mimages/mimage_teachtab.jpg) no-repeat top left;
+      	min-height: 100px;
+      	padding-top: 160px;
+      	width: 324px;
+      	float: left;
+      	margin: -13px 0 0 -13px;
+        h3 {
+    			margin: 0 0 10px 13px;
+        }
+        p {
+          margin-left: 13px;
+          line-height: 14px;
+        }
+
+      }
+  	}
+
+	}
+	
+	/*manage tab*/
+	.manage {
+  	 .aui-tabview-list { 
+    		@include simple-linear-gradient(left, #eb3d24, #f68a1f);	
+    		.aui-tab-label { 
+    			border-right: 1px solid #fff; 
+    			text-shadow: -1px -1px #356c28;
+    		}
+    		.aui-tab-active .aui-tab-label {
+    			color: #eb3d24;
+    			text-shadow: none;
+    			border-right: none;
+    		}
+  	}
+
+  	.omni-portlet-wrapper {
+      h3 {
+  			@include ciscolight(20px, normal);
+  			margin: 0 0 10px 0;
+        color: #eb3d24;
+      }
+      .intro {
+      	background: transparent url(../images/custom/mimages/mimage_managetab.jpg) no-repeat top left;
+      	min-height: 100px;
+      	padding-top: 160px;
+      	width: 324px;
+      	float: left;
+      	margin: -13px 0 0 -13px;
+      	h3 {
+    			margin: 0 0 10px 13px;      	
+      	}
+        p {
+          margin-left: 13px;
+          line-height: 14px;
+        }
+      }
+  	}
+	}	
+
+	/*learn tab*/
+	.learn {     
+	  .aui-tabview-list { 
+  		@include simple-linear-gradient(left, #53af42, #c6da2c);	
+  		.aui-tab-label { 
+  			border-right: 1px solid #b1ef43; 
+  			text-shadow: -1px -1px #356c28;
+  		}
+  		.aui-tab-active .aui-tab-label {
+  			color: #53af42;
+  			text-shadow: none;
+  			border-right: none;
+  		}
+		}
+		
+  	.omni-portlet-wrapper {
+        h3 {
+    			@include ciscolight(20px, normal);
+    			margin: 0 0 10px 0;
+          color: #53af42;
+        }
+      .intro {
+      	background: transparent url(../images/custom/mimages/mimage_learntab.jpg) no-repeat top left;
+      	height: 100px;
+      	padding-top: 160px;
+      	width:324px;
+      	float: left;
+      	margin: -13px 0 0 -13px;
+        h3 {
+    			margin: 0 0 10px 13px;
+        }
+        p {
+          margin-left: 13px;
+          line-height: 14px;
+        }
+      }     
+  	}
+	}
+	
+	/*cisco tab*/
+	.cisco {
+  	 .aui-tabview-list { 
+    		@include simple-linear-gradient(left, #5f2686, #c2188d);	
+  
+  		.aui-tab-label { 
+  			border-right: 1px solid #fff; 
+  			text-shadow: -1px -1px #356c28;
+  		}
+  		.aui-tab-active .aui-tab-label {
+  			color: #5f2686;
+  			text-shadow: none;
+  			border-right: none;
+  		}
+  	}
+  	
+  	.omni-portlet-wrapper {   
+      h3 {
+  			@include ciscolight(20px, normal);
+  			margin-bottom: 10px;
+        color: #5f2686;
+      }
+      
+      .data-container {
+        overflow-y: auto;
+        .access {
+          ul {
+            padding-top: 7px;
+            li {
+              font-size: 13px; 
+              padding: 3px 0;
+            }
+          }
+        }
+      }
+  	}
+  }	
+  
+  
+	.aui-tabview-list {
+		font-size: 14px;
+		position: relative;
+		padding-left: 15px;
+		border: none;
+		@include custom-border-radius(5px, 5px, 0, 0);	
+		height: 32px;
+		
+	
+		li {
+			border: none;
+			float: left;
+			background: transparent none;
+			
+			/*&:hover .aui-tab-label { background: #f00; }*/
+			
+			a { 
+				margin: 0; 
+				background: transparent none; 
+				text-shadow: none; 
+			}
+			
+			&.aui-tab-active {
+				margin: -9px 0 0 0;
+				@include custom-border-radius(5px, 5px, 0, 0);	
+				background: #f8f8f8;
+				@include box-shadow(0, -1px, 2px, #ccc);
+				
+				.aui-tab-label {
+					padding: 18px 20px 9px 20px;
+				}
+			}
+			
+			.aui-tab-label {
+				background: transparent none;
+				padding: 9px 25px;
+				color: #fff;
+				font-weight: bold;
+				
+				&:hover { text-decoration: none; }
+				
+				strong { font-weight: bold; }
+			}
+
+			.aui-tab-label a {
+				background: transparent none;
+				border: none;
+				
+				&:hover {
+					background: transparent none;
+					border: none;
+				}
+			}	
+		}
+		
+		.aui-tab-content {
+			background: none;
+			border: none;
+	    }
+	    
+		.aui-tab-content, .aui-tab-content:hover {
+			border: none;
+			-moz-box-shadow: none;
+			-ms-box-shadow: none;
+			-o-box-shadow: none;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+		}
+	}
+}
+
+.ie9 .netacad-landing .omni-portlet .portlet-borderless-container {
+  padding-bottom: 8px;
+}
+
+/* these may be superceeded if wrapper divs are added */
+.page-maximized .omni-portlet .portlet-body .portlet-body {
+  background-color: transparent;
+  min-height: none;
+  box-shadow: none;  
+}
+
+.page-maximized .omni-portlet .portlet-body .portlet-body #canvas-enrollments-list {
+  
+  
+}
+
+.omni-portlet {
+  .manage-enrollments {
+    h1 {
+  		color: $purple;
+  		@include ciscolight(20px, normal);
+  	  margin-bottom: 5px;      
+    }
+    table {
+      margin-bottom: 10px;
+    }
+    
+  }
+  
+}
+
+.portal-popup .omni-portlet {
+  .portlet-body {
+    .portlet-body {
+      background-color: transparent;
+      box-shadow: none;
+      div {
+        text-align: left!important;
+        table {
+          margin-bottom: 10px;
+        }
+      }
+          
+    }
+  }
+}
+
+.omni-portlet {
+  .manage-users-wrapper {
+    h1 {
+  		@include ciscolight(24px, normal);
+  		color: $purple;     
+  		margin-bottom: 15px;
+    }
+    .organizationDropDownContainer {
+      text-align: left;
+  		margin-bottom: 15px;
+      select {
+        min-width: 300px;
+      }      
+      .aui-field-label {
+        text-align: left;
+      }
+    }
+    
+  }
+  
+}
+
+.omni-portlet {
+  .enrollment-view-wrapper {
+    h1 {
+  		@include ciscolight(24px, normal);
+  		color: $purple;     
+  		margin-bottom: 15px;
+    }
+    select {
+      min-width: 300px;
+    }
+    .page-selector {
+      select {
+        min-width: intrinsic;
+      }
+    }
+    table {
+      margin-bottom: 15px;
+    }
+    td[width="50%"] {
+      padding-right: 15px;
+    }
+    #_omni_WAR_omniportlet_submitEnrollments {
+      #table-container {
+        margin:15px 0;
+      }
+    }
+    .yui3-datatable-content {
+      .aui-buttonitem-content {
+        background-image: url(../images/portlet/header_bg.png);
+        background-color: #D4D4D4;      
+      }
+      .aui-icon-plusthick {
+        background-position: 0px -192px;
+      }
+      .aui-icon-crossthick {
+        background-position: -16px -192px;
+      }
+
+    }
+    #canvas-enrollments-list {
+      select {
+        min-width: inherit;
+      }  
+    }
+  }
+}
+
+.omni-portlet {
+  .enrollments-search-users-wrapper {
+    h1{
+  		@include ciscolight(20px, normal);
+  		color: $purple;     
+  		margin-bottom: 15px;          
+    }
+    div {
+      width:auto!important;
+      text-align: left!important;
+      table {
+        margin-bottom: 10px;
+      }
+    }
+    
+    div:first-child {
+    }
+    
+    #_omni_WAR_omniportlet_searchForm {
+      margin-top:15px;  
+      table {
+        td {
+          vertical-align: middle;
+          .aui-field-input {
+             margin-top: 8px;
+          }
+
+        }
+      }
+    }
+    
+    form .lfr-search-container {
+      margin-bottom: 15px;
+    }
+  }
+  
+}
+
+.omni-portlet {
+  .manage-instructor-certifications-wrapper {
+    h1 {
+  		@include ciscolight(24px, normal);
+  		color: $purple;     
+  		margin-bottom: 15px;
+    }
+    .organizationDropDownContainer {
+      float:left; 
+      margin-bottom: 15px;
+      margin-right: 15px;
+      select {
+        min-width: 300px;
+      }
+      
+    }    
+    .courseDropDownContainer {
+      label {
+        display: block;
+      }
+      select {
+        min-width: 300px;
+      }
+    }
+    .results-grid {
+      border-left-style: none;
+      border-right-style: none;
+      table {
+        border-left: 1px solid #d7d7d7;
+        border-right: 1px solid #d7d7d7;
+      }
+    }
+  }
+}
+
+.omni-portlet {
+  .update-academy-wrapper {
+    .institution-profile-title {
+  		@include ciscolight(24px, normal);
+  		color: $purple;     
+  		margin-bottom: 15px;
+      
+    }
+    
+    .aui-field-select {
+      display: block;
+      margin-bottom: 15px;
+      select {
+        min-width: 300px;
+      }
+    }    
+    
+    .academy-form-body {
+      
+      table.academy-read-only-panel {
+        background-color: #f6f6f6;
+        margin-bottom: 15px;
+        border: 1px solid #707070;
+        td {
+          padding:5px 10px;
+        }
+        
+      }
+      
+      table.business-phone-panel {
+        background-color: transparent;
+        padding: 0;
+        
+      }
+      
+      .academy-form-table {
+        padding-bottom: 0;
+      }
+    }
+  }
+  
+}
+
+.omni-portlet {
+  .opportunity-wrapper {
+    select {
+      margin-bottom: 15px;
+      min-width: 300px;
+    }
+  }
+}
+
+.omni-portlet {
+  .manage-view-wrapper {
+    select {
+      margin-bottom: 15px;
+      min-width: 300px;
+    }
+    .aui-field-text {
+      float:left;
+      margin-right: 15px;
+      
+    }
+    .aui-button {
+      display: block;
+      padding-top: 15px;
+    } 
+  }
+}
+
+.portal-popup {
+  .omni-portlet {
+    .manage-view-wrapper,.opportunity-wrapper {
+      button.aui-buttonitem-content {
+        background: #d4d4d4 url(../images/portlet/header_bg.png) repeat-x 0 0;
+        border: 1px solid;
+        padding: 3px;
+        border-color: #C8C9CA #9E9E9E #9E9E9E #C8C9CA;
+      }
+    }
+  }
+}
+
+.omni-portlet {
+  .add-user-wrapper {
+    h3.organization-name {
+  		@include ciscolight(24px, normal);
+  		color: $purple;     
+  		margin-bottom: 15px; 
+  		text-align: left!important;     
+    }
+    .aui-column-first {
+      .aui-fieldset-content {
+        padding-left: 0; 
+      }
+    }
+    
+    h4 {
+      color: $purple;
+  		@include ciscolight(20px, normal);
+      margin-bottom: 10px;
+      clear: both;
+      text-align: left;
+      font-weight: normal;
+    }
+    .role-column {
+    	@include clearfix();
+      width: 50%!important;
+      .checker {
+        float:left;
+        clear: left;
+        margin-bottom: 5px;
+      }
+      label {
+        float:left;
+        padding-top: 3px;
+        clear: left;
+      }
+    }
+    p.form-message {
+      margin: 15px 0;
+    }
+  }
+  
+}
+
+.omni-portlet {
+  .cisco-add-user-wrapper {
+
+    h3.organization-name {
+  		@include ciscolight(24px, normal);
+  		color: $purple;     
+  		margin-bottom: 15px; 
+  		text-align: left!important;     
+    }
+    .aui-column-first {
+      .aui-fieldset-content {
+        padding-left: 0; 
+      }
+    }
+    
+    h4 {
+      color: $purple;
+  		@include ciscolight(20px, normal);
+      margin-bottom: 10px;
+      clear: both;
+      text-align: left;
+      font-weight: normal;
+    }
+    .role-column {
+    	@include clearfix();
+      width: 50%!important;
+      .checker {
+        float:left;
+        clear: left;
+        margin-bottom: 5px;
+      }
+      label {
+        float:left;
+        padding-top: 3px;
+      }
+    }
+    p.form-message {
+      margin: 15px 0;
+    }
+  
+  }
+}
+
+.omni-portlet {
+  .cisco-user-usergroups-wrapper {
+    .user-wrapper {
+    	@include clearfix();
+      margin-bottom: 10px;
+      .user-portrait {
+        float: left;
+        margin-right: 15px;
+        .user-info {
+          #userFullName {
+            
+          }
+          #organizationName {
+            
+          }
+          #userEmail {
+            
+          }
+        }
+      }
+      
+    }
+    h3 {
+      color: $purple;
+  		@include ciscolight(20px, normal);
+      margin-bottom: 10px;
+      clear: both;
+      text-align: left;
+      font-weight: normal;
+    }
+    .role-column {
+    	@include clearfix();
+      width: 50%!important;
+      .checker {
+        float:left;
+        clear: left;
+        margin-bottom: 5px;
+      }
+      label {
+        float:left;
+        padding-top: 3px;
+      }
+    }    
+  }
+}
+
+.omni-portlet {
+  .create-a-course-wrapper {
+    select {
+      min-width: 300px;
+    }
+    .aui-column {
+      .aui-column-content {
+        padding-left: 0;
+      }
+    } 
+    #additionalInstructors {
+      select {
+        display: block;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.omni-portlet {
+  .manage-user-roles-wrapper {
+    .user-wrapper {
+    	@include clearfix();
+      margin-bottom: 10px;
+      .user-portrait {
+        float: left;
+        margin-right: 15px;
+        .user-info {
+          #userFullName {
+            
+          }
+          #organizationName {
+            
+          }
+          #userEmail {
+            
+          }
+        }
+      }
+      
+    }
+    h3 {
+      color: $purple;
+  		@include ciscolight(20px, normal);
+      margin-bottom: 10px;
+      clear: both;
+      text-align: left;
+      font-weight: normal;
+    }
+    .role-column {
+    	@include clearfix();
+      width: 50%!important;
+      .checker {
+        float:left;
+        clear: left;
+        margin-bottom: 5px;
+      }
+      label {
+        float:left;
+        padding-top: 3px;
+        clear: left;
+      }
+    }    
+  }
+}
+
+.omni-portlet {
+  .manage-relationships-wrapper {
+     .relationship-container {
+       .aui-button-holder {
+         padding: 0;
+         margin: 5px 0 0 0;
+       }
+     } 
+  }
+}
+.omni-portlet {
+  .results-row td, .results-row.alt td {
+    border-right-width: 1px;
+    border-left-width: 1px;
+  }
+  
+  .results-row td.sort-column {
+    background-color: transparent;
+  }  
+
+  .results-row.alt td.sort-column {
+    background-color: #f5f8fb;
+  }  
+
+  .results-row.selected td.sort-column {
+    background-color: #00A2EA;
+  }  
+
+  .results-row.alt.selected td.sort-column {
+    background-color: #00A2EA;
+  }  
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ie9 .home .bottom-row .portlet-body .portlet-borderless-container {
+  box-shadow: 0 1px 0 #CCCCCC;  
+  border-collapse: separate;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.ie9 .home .bottom-row .portlet-rss .portlet {
+  box-shadow: 0 1px 0 #CCCCCC;  
+  border-collapse: separate;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.ie9 .omni-portlet {
+  .portlet-body {    
+    	@include custom-border-radius(5px, 5px, 0, 0);	
+      overflow: hidden;
+  }
+}
+
+
+.ie9 .omni-portlet .aui-tabview-list li.aui-tab-active {
+  border-collapse: separate;
+}
+
+/*My tasks portlet (???)*/
+
+.canvas-todo-stream-portlet {
+	.portlet-topper {
+		@include custom-border-radius(5px, 5px, 0, 0);
+		@include simple-linear-gradient(left, #959595, #d4d4d5);
+		
+		.portlet-title {
+			color: #fff;
+			font-size: 14px;
+			font-family: "Arial", sans-serif;
+			font-weight: bold;
+			text-shadow: 0 -1px 0 #5e5e60;
+			padding: 8px;
+		}
+	}
+	.portlet-content {
+	   background-color: #F8F8F8;
+	   padding: 12px 15px 15px 15px;
+	   border-bottom-left-radius: 5px;
+     border-bottom-right-radius: 5px;
+	   box-shadow: 0 1px 0 #CCCCCC;
+	}
+	ul.todo-list {
+	 border-color: #ededed;
+	 border-left-style: none;
+	 border-right-style: none;
+	 height: 287px;
+
+  	li.todo {
+  	 background-color: transparent;
+  	 background-position: left center;
+  	 background-position-x: left;
+  	 background-position-y: center;
+
+  	 border-bottom-color: #ededed;
+  	 padding: 14px 8px 6px 30px;
+  	 height: auto;
+  	 line-height: 1em;
+
+       a {
+      	 font-size: 12px;
+      	 height: auto;     
+       }
+  	}
+
+	}
+	
+}
+
+.ie9 .canvas-todo-stream-portlet  {
+		@include custom-border-radius(5px, 5px, 0, 0);
+		overflow: hidden;
+		padding-bottom: 8px;
+		border-collapse: separate;
+}
+
+/*RSS Portlet & Useful Links Portlet*/
+
+.portlet-rss, #home-links {
+  ul {
+    margin:0
+  }
+	.feed { padding-left: 0; }
+
+	.feed-entries, ul {
+		border-top: 1px solid #ededed;
+		border-bottom: 1px solid #fff;	
+	}
+
+	.feed-entry, li {
+		margin-bottom: 0;
+		padding: 8px 0;
+		position: relative;
+		border-top: 1px solid #fff;
+		border-bottom: 1px solid #ededed;
+		@include clearfix();
+		
+		.feed-entry-title {
+			padding-top: 14px;
+			
+			.opens-new-window-accessible { display: none; }
+		}
+		.feed-entry-content {
+			padding-left: 0;
+			position: absolute;
+			top: 8px;
+			left: 0;
+			color: transparent;
+			height: 11px;
+			overflow: hidden;
+			
+			.feed-date {
+				margin: 0;
+				padding-left: 0;
+				font-size: 11px;
+				background: transparent none;
+				color: #505050;
+			}
+			a {
+  			display: none;
+			}
+		}
+	
+		a {
+			font-weight: normal;
+		}
+	
+		img { display: none; }
+	}
+}
+
+.signed-out .portlet-rss ul.portlet-options, 
+.controls-hidden .portlet-rss ul.portlet-options { display: none; }
+
+#home-links {
+	h3 { margin-bottom: 8px; }
+	
+	li p { margin-top: 5px; }
+}
+
+/*Regional Sites Portlet*/
+
+.regional-sites {
+	h3 { margin-bottom: 10px; }
+	.sites-body {
+		margin-bottom: 10px;
+		@include clearfix();
+		
+		p {
+			width: 90px;
+			float: left;
+			line-height: 1.6;
+		}
+		
+		img {
+			max-width: 90px;
+			max-height: 90px;
+			float: right; 
+		}
+	}
+	
+	label { font-size: 11px; }
+	
+	#uniform-regional-select {
+		margin: 3px 0 0 0;
+	}
+	
+	#regional-go {
+		display: block;
+		margin-top: 6px;
+		width: 30px;
+		height: 30px;
+		float: right;
+		background: url("../images/custom/form-submit.png");
+	}
+}
+
+/*Get Connected Portlet*/
+
+.get-connected {
+	h3 { 
+		color: $purple;
+		@include ciscolight(20px, normal);
+	  margin-bottom: 5px;
+	   }
+
+	img {}
+	
+	a {
+		display: block;
+		float: left;
+		width: 28px;
+		height: 28px;
+		margin: 5px 5px 0 0;
+		text-indent: -9999px;
+	}
+
+  .bg-container {
+		background-position: left bottom;
+    height: 130px;
+    background-repeat: no-repeat;    
+  }
+/*	
+	> div {
+		background-position: left bottom;
+	}
+*/	
+	.icon-twitter { background: url("../images/custom/socialmedia/icon-twitter.png") center center no-repeat; }
+	.icon-facebook { background: url("../images/custom/socialmedia/icon-facebook.png") center center no-repeat; }
+	.icon-youtube { background: url("../images/custom/socialmedia/icon-youtube.png") center center no-repeat; }
+	.icon-linkedin { background: url("../images/custom/socialmedia/icon-linkedin.png") center center no-repeat; }
+	
+	.fb-like {
+    height: 40px;
+    padding-top: 12px;
+    width: 193px!important;
+    > span {
+      width: 193px!important;
+      height: 40px!important;
+    }
+    position: relative;
+    iframe[style] {
+      width: 193px!important;
+      height: 40px!important;
+      overflow: hidden;
+    }
+	}
+}
+
+/*All Resources Portlet*/
+
+.portlet-document-library-display {
+	.top-links, .folder-search { float: none !important; margin: 0; }
+
+	.top-links-navigation {
+		display: none;
+	}
+	
+	input[type="submit"], input[type="button"], input[type="reset"], button {
+	 text-shadow: 1px 1px 0 #000;
+	}
+	
+	.aui-search-bar {
+		@include clearfix();
+		margin-bottom: 30px;
+		
+		& > div { float: left; margin-right: 10px; }
+		.aui-field-inline {
+  		display: block;
+  		float:left;
+  		margin-right: 10px;
+		}
+		.aui-button-holder {
+  		clear: none;
+  		margin-top: 15px;
+		}
+		label { display: block; }
+	}
+	
+	/*table*/
+	.lfr-panel.lfr-collapsible {
+		.lfr-panel-titlebar {
+			@include simple-linear-gradient(top, #fcfcfc, #f1f1f1);
+			border-top: 1px solid #eee;
+			border-bottom: 1px solid #eee;
+			padding: 0 0 0 10px;
+			margin: 0;
+		}
+		
+					
+		& .lfr-panel-title {
+			padding: 5px 20px;
+			font-size: 13px;
+			background: url("../images/custom/dd-arrow-down.png") left 50% no-repeat;
+		}
+		
+		&.lfr-collapsed .lfr-panel-title {
+			background: url("../images/custom/dd-arrow-right.png") 4px 50% no-repeat;
+		}
+	}
+	
+	.taglib-search-iterator-page-iterator-bottom {
+		background: transparent none;
+		padding: 4px 0;
+	}
+	
+	.lfr-panel-content { 
+		padding: 0;
+	
+		.separator { display: none; }
+	}
+	
+	.results-grid { border: none; }
+	
+	table.taglib-search-iterator {
+		border: none;
+		
+		tr, th, td { border: none; }
+		
+		th, td { padding: 4px 0; }
+		
+		tr { 
+			border-bottom: 1px solid #eee; 
+		
+			&.portlet-section-alternate.results-row.alt td {
+				background: transparent none;
+			}
+		}
+		
+		td.col-1 {
+			height: 54px;
+			position: relative;
+			
+			u {
+				padding-left: 64px;
+				text-decoration: none;
+				
+				&:before {
+					content: "/ ";
+				}
+			}
+			
+			a {
+				display: block;
+				padding-left: 64px;
+				
+				img {
+					display: block;
+					float: left;
+					max-width: 54px;
+					max-height: 54px;
+					
+					position: absolute;
+					top: 4px;
+					left: 0;
+					
+				}
+			}
+			
+			.entry-title { padding: 0; }
+			
+			.entry-thumbnail {
+				position: static;
+				float: none;
+			}
+		}
+		
+		.results-header { background: transparent none; }
+		.portlet-section-header {
+			th { 
+				font-size: 12px;
+				background: transparent none;
+			}
+		}
+	}
+}
+
+.firefox {
+  .portlet-document-library-display {
+    table.taglib-search-iterator {
+      td.col-1 {
+        height: auto;
+        min-height: 54px;
+        display: block;
+      }
+    }
+  }
+}
+
+/*-------------------------PRE-SASS STUFF BELOW HERE---------------------*/
+
+.portlet-dockbar {
+  display: block;
+}
+
+/* flyout menus */
+.popup-menu {
+  background: #eee;
+  display: none;
+  padding: 8px;
+  position: absolute;
+  width: 250px;
+  z-index: 9999;
+
+  .portlet-body {
+    border: none;
+  }
+
+  .portlet, .portlet-topper {
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .portlet-topper {
+    display: none;
+  }
+}
+
+.search-box-container {
+  /* left: 105px; */
+
+  .portlet-body {
+    border: 1px solid #abafb3;
+    border-top: none;
+
+    select {
+      display: none;
+    }
+  }
+}
+
+.help-portlet-container {
+  left: 130px;
+}
+
+/* main navigation */
+#heading .main {
+  color: #fff;
+  font-size: 12px;
+  padding: 7px 4px 8px 4px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  background: #c8c8c8;
+  @include custom-border-radius(0px, 0px, 5px, 5px);
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      float: left;
+      border-left: 1px solid #fff;
+      
+      &:first-child { border-left: none; }
+      
+      a, .text, .welcome-text {
+        color: #fff;
+        padding: 0 9px;
+
+        &.button {
+          padding: 2px 16px;
+        }
+      }
+      .welcome-text a {
+        padding: 0;
+      }
+      
+    }
+  }
+
+  .portlet-body {
+    color: #333;
+  }
+  
+  .search-container {
+    padding-left: 8px;
+    .search-wrap {
+      display: block;
+      background-color: #fff;
+      height: 20px;
+      float: left;
+      margin: -4px 0 -4px 0;
+      form {
+        padding: 4px 1px 3px 1px;
+        select {
+          display: none;
+        }
+        
+        .selector {
+          display: none;
+        }
+        
+        input[type="text"] {
+          background: #fff none;
+          font-size: 11px;
+          width: 140px;
+          margin: 0;
+          padding: 0 0 0 2px;
+          box-shadow: none;  
+          @include border-radius(0px);
+
+        }
+        input:focus {
+          outline: none;
+        }
+        input::-webkit-input-placeholder {
+          color: #C8C8C8;
+          font-style: italic;
+        }
+        input:-moz-placeholder {
+          color: #C8C8C8;
+          font-style: italic;
+        }
+        input[type="image"] {
+          padding-right: 4px;
+        }
+      }
+    }
+  }
+
+}
+
+/* app navigation */
+#navigation {
+  background: #afb3b8;
+  @include simple-linear-gradient(top, #bbc0c5, #a8acb1);
+  @include border-radius(5px);
+  margin: 0 auto;
+  padding: 4px;
+  width: $site-width;
+}
+
+#navigation ul {
+  list-style: none;
+  overflow: hidden;
+}
+
+#navigation li {
+  float: left;
+  margin: 0 2px;
+}
+
+#navigation a {
+  color: #555;
+  display: block;
+  font-weight: bold;
+  line-height: 23px;
+  padding: 1px 9px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .4);
+}
+
+#navigation .selected a, #navigation a:hover {
+  background: #969a9e;
+  border-bottom: 1px solid #cbced1;
+  border-top: 1px solid #83868a;
+  @include border-radius(4px);
+  color: #fff;
+  padding: 0 9px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .4);
+  text-decoration: none;
+}
+
+#navigation .delete-tab {
+  display: none;
+}
+
+.content-wrapper {
+  min-height: 100%;
+}
+
+/* portlets */
+.portlet, .portlet-borderless-container {
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
+.portlet-title {
+  color: #555;
+/*  float: left;*/
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+
+  .icon {
+    display: none;
+  }
+}
+
+h1.portlet-title {
+		@include ciscolight(22px, normal); 
+		color : $purple;
+}
+
+.portlet-content {
+  padding: 8px 0;
+}
+
+.portlet-dropzone.empty {
+  min-height: 20px;
+}
+
+/* alerts */
+.portlet-alerts .entry {
+  background: #ebeff5;
+  @include border-radius(5px);
+  border: 1px solid #d0d0d0;
+  @include box-shadow(0, 0, 5px, rgba(0, 0, 0, .2));
+}
+
+.portlet-alerts .entry-scope {
+  color: #555;
+}
+
+.portlet-alerts .entry-content {
+  background: none;
+}
+
+/* modal windows */
+.aui-dialog-iframe-bd {
+  max-height: 100%;
+  overflow-x: scroll;
+}
+
+/* portlet toolbar */
+.portlet-topper-toolbar a {
+  background-position: top left;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+
+span[title="Options"] a {
+  background-image: url(../images/portlet/options.png);
+}
+
+.portlet-minimize-icon a {
+  background-image: url(../images/portlet/minimize.png);
+}
+
+.portlet-maximize-icon a {
+  background-image: url(../images/portlet/maximize.png);
+}
+
+.portlet-close-icon a {
+  background-image: url(../images/portlet/close.png);
+}
+
+
+
+/* landing page */
+.netacad-landing .portlet-title {
+  float:none;
+}
+
+.netacad-landing .column-left {
+  padding-right: 20px;
+}
+
+.netacad-landing .column-left #column-2 {
+  width: 620px;
+}
+
+.netacad-landing .column-left #column-3 {
+  width: 300px;
+  padding-right: 20px;
+}
+
+.netacad-landing .column-left #column-4 {
+  width: 300px;
+}
+
+.netacad-landing .column-left #column-5 {
+  width: 620px;
+}
+
+.netacad-landing .column-right #column-6 {
+  width: 300px;
+}
+
+.netacad-landing .portlet-column-content {
+  padding: 0;
+}
+
+.netacad-landing .portlet-column-content .portlet-borderless-container,
+.netacad-landing .portlet-column-content .portlet {
+  padding: 0;
+}
+
+/* three column */
+
+.netacad-three-col {
+  margin-top: 32px;
+}
+
+.netacad-three-col #column-1 {
+  width: 140px;
+  padding-right: 20px;
+}
+
+.netacad-three-col #column-2 {
+  width: 460px;
+  padding-right: 20px;
+}
+
+.netacad-three-col #column-3 {
+  width: 300px;
+}
+
+.netacad-three-col .portlet-column-content {
+  padding: 0;
+}
+
+
+
+.journal-content-article {
+	.tout-image {
+		width: 100%;
+		position: relative;
+		
+		h3 {
+			margin-bottom: 15px;
+			color: $purple;
+			@include ciscolight(22px, normal);
+		}
+	}
+	
+	.base {
+		padding: 10px;
+		@include clearfix();
+	}
+
+	.gray { /*Academy Locator*/
+		padding: 15px;
+
+		background: #f8f8f8;
+		@include border-radius(5px);
+
+		@include box-shadow(0, 1px, 0, #ccc);
+		@include clearfix();
+	}
+	
+	.tout-body {
+		position: relative;
+		
+		p {
+			padding-right: 90px;
+			line-height: 1.6;
+			margin-bottom: 5px;
+		}
+		img {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+	}
+
+}
+
+.journal-content-article {
+  .tout-image {
+    &.wide {
+      .tout-body {
+        p {
+          padding-right: 0;
+        }
+        img {
+          position: relative;
+          margin-bottom: 10px;
+          
+        }
+      }
+      
+    }
+  }
+}
+
+.netacad-landing {
+  	.portlet-rss {
+    	.portlet {
+    		background: #f8f8f8;
+    		@include border-radius(5px);
+    		@include box-shadow(0, 1px, 0, #ccc);
+    		padding: 15px 15px 10px 15px;
+    		
+    		.portlet-topper {
+    			background: url("../images/custom/img_gradientbar_3col.png") left top no-repeat;
+    			padding: 10px 8px 0 0;
+    			@include clearfix();
+    		}
+    		
+    		.portlet-title, h3 {
+    			color: $purple;
+    			@include ciscolight(20px, normal);
+    		}
+    	}
+      
+      .portlet-content {
+        padding-bottom: 0;       
+      }
+      .portlet-content-container {
+        overflow-y: auto;
+      } 
+    
+  }
+   
+}
+
+.ie9 .netacad-landing .portlet-rss .portlet {
+  border-collapse: separate;
+}
+
+
+/* landing tout left  - appears under omniportlet */
+.portlet-journal-content {
+  .landing-tout-left {
+    height: 209px;
+		padding: 15px;
+    .tout-body {
+      width: 181px;
+      height:181px;
+      background-color: #fff;
+      margin-left: 59px;
+      padding: 15px;
+      -webkit-box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
+      -moz-box-shadow:    0px 0px 10px rgba(50, 50, 50, 0.75);
+      box-shadow:         0px 0px 10px rgba(50, 50, 50, 0.75);
+      h3 {
+    			@include ciscolight(18px, normal);      
+      }
+      p {
+        line-height: 1.2;
+        margin:0;
+        padding: 10px 0;
+      }
+  		a {
+  			display: block;
+  			float: left;
+  			padding: 10px 15px;
+  			background: url("../images/custom/button-bg.png") center center repeat-x;
+  			font-weight: bold;
+  			color: #fff;
+  			text-shadow: 0 -1px 0 #000;
+  			border: none;
+  			@include border-radius(4px);  			
+			}
+      
+      
+    }
+  
+  }
+  
+  
+} /* portlet-journal-content */
+
+.ie9 .landing-tout-left .tout-body {
+  border-collapse: separate;
+}
+
+
+.netacad-landing {
+  .get-connected-portlet {
+		background-color: #f8f8f8;
+    		@include border-radius(5px);
+
+
+      .portlet-borderless-container {
+        background-clip: border-box;
+        padding: 15px;
+		    /*min-height: 255px;*/
+    		@include border-radius(5px);
+		    @include box-shadow(0, 1px, 0, #ccc); 
+
+      }
+		
+    h3 {
+  		background: url("../images/custom/img_gradientbar_3col.png") left top no-repeat;
+      padding-top: 15px;
+    }
+  
+  }
+}
+
+.ie9 .netacad-landing .get-connected-portlet .portlet-borderless-container {
+  border-collapse: separate;
+}
+
+.landing-top-title {
+		@include ciscolight(24px, normal);
+    color: $purple;
+		padding: 15px;
+		background: #f8f8f8;
+		@include border-radius(5px);
+
+		@include box-shadow(0, 1px, 0, #ccc);
+		@include clearfix();
+
+}
+
+.ie9 .landing-top-title {
+  border-collapse: separate;
+}
+
+.tout-cisco-resources { 
+
+	padding: 15px;
+	background: #f8f8f8;
+	@include border-radius(5px);
+	@include box-shadow(0, 1px, 0, #ccc);
+	@include clearfix();
+
+	h3 {
+		margin-bottom: 10px;
+		color: $purple;
+		@include ciscolight(22px, normal);
+	}
+	
+	.tout-body {
+		position: relative;
+		
+		p {
+			padding-right: 90px;
+			line-height: 1.6;
+			margin-bottom: 5px;
+		}
+		img {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
+		a {
+			display: block;
+			float: left;
+			padding: 10px 15px;
+			background: url("../images/custom/button-bg.png") center center repeat-x;
+			font-weight: bold;
+			color: #fff;
+			text-shadow: 0 -1px 0 #000;
+			border: none;
+			@include border-radius(4px);  			
+		}
+		
+	}
+}
+
+.ie9 .tout-cisco-resources {
+  border-collapse: separate;
+}
+
+.did-you-know { 
+
+	padding: 15px;
+	background: #f8f8f8;
+	@include border-radius(5px);
+	@include box-shadow(0, 1px, 0, #ccc);
+	@include clearfix();
+
+  .tout-wrap {
+  		background: url("../images/custom/img_gradientbar_3col.png") left top no-repeat;
+  		padding-top: 15px;
+  		/*min-height: 128px; */
+  }
+
+	h3 {
+		margin-bottom: 10px;
+		color: $purple;
+		@include ciscolight(22px, normal);
+	}
+	
+	.tout-body {
+		position: relative;
+		
+		p {
+			padding-right: 0;
+			line-height: 1.6;
+			margin-bottom: 5px;
+		}
+
+		img {
+		  position: relative;
+      float: right;
+		}
+		
+	}
+}
+
+.ie9 .did-you-know {
+  border-collapse: separate;
+}
+
+
+
+/* manage canvas dialogs */
+
+
+.aui-panel {
+  @include border-radius(4px);
+
+}
+
+.aui-panel .aui-panel-content {
+  border-style: none;
+  @include border-radius(4px);
+  padding: 0;
+
+  
+}
+
+.aui-dialog-hd {
+  border-radius: 4px 4px 0 0!important;
+  -webkit-border-radius: 4px 4px 0 0!important;
+  border-style: none;
+  @include simple-linear-gradient(left, #949698, #d4d4d5);
+  padding: 4px 10px;
+  box-shadow: none;
+  .aui-panel-hd-text {
+    color: #fff;
+    font-size: 15px;
+    font-weight: normal;
+    text-shadow: 0 -1px 0 #252626;
+  }
+  
+  button#closethick {
+    background: transparent none;
+    border: 0;
+    padding: 6px;
+  }
+  
+  span.aui-icon-closethick {
+		background: url("../images/custom/btn-modal-xclose.png") center center no-repeat;  						 
+  }
+
+}
+
+
+
+.portal-popup {
+  
+  .portlet-body .portlet-body {
+    padding:12px;
+    background-color: #fafafa;
+  }
+  
+  .aui-dialog-iframe-bd {
+    background-color: #949698;
+    padding: 15px;
+  }
+  
+  .aui-button-holder {
+    padding: 12px 0;
+  }
+  
+  input[type="submit"], input[type="button"], input[type="reset"], button {
+			background: url("../images/custom/button-bg.png") center center repeat-x;  			
+			color: #fff;
+			text-shadow: 0 -1px 0 #000;
+			font-weight: normal;
+      border: 0;
+      padding: 8px 10px;
+  }
+  
+  /* calendar buttons need to stay gray */
+  /* - removing this
+  button.aui-buttonitem-content {
+		background: url("../images/portlet/header_bg.png") center center repeat-x;  
+		padding: 4px;							 
+  }
+  */
+  input[type="text"] {
+    background: #ebebeb none;
+    border: 0;
+    border-top: 1px solid #e6e6e6;
+    @include border-radius(4px);
+    font-size: 13px;
+    font-weight: normal;
+    color: #666;
+    padding: 6px;
+  }
+
+  input:focus, textarea:focus {
+    outline:none;
+  }
+  
+  input[type="checkbox"] {
+    margin: 5px 0;
+  }
+  
+  .aui-field {
+    margin-bottom: 15px;
+  }
+  
+  .aui-field-label {
+    font-weight: normal;
+    color: #666;
+  }
+  
+  .aui-field-input-select {
+    color: #666;
+    font-size: 13px;
+  }
+  
+}
+
+.ie9 .aui-dialog-hd {
+  overflow: hidden;
+}
+
+
+.portlet-navigation {
+  .portlet-borderless-container {
+    padding: 0;
+  }
+  
+  .nav-menu {
+    h2 {
+  		@include ciscolight(22px, normal);    
+  		padding-bottom: 10px;
+  		margin-bottom: 2px;
+  		line-height:1.2em; 
+    }
+    
+    ul {
+      border-top: 1px solid #ededed;
+      list-style-type: none;
+      padding-left: 0;
+    }
+    a:hover {
+      color: #007bab;
+      text-decoration: none;
+    }
+    
+    ul.level-1 {
+      li {
+       
+       ul {
+        display: none;
+       }
+       
+       &.has-children {
+          a {
+            background: transparent url(../images/custom/leftnav/btn-caret-closed.png) no-repeat 0 12px;;              
+          }
+          
+          &.selected {
+            a {
+              background-image: url(../images/custom/leftnav/btn-caret-open.png);
+            }                        
+          }   
+          
+          ul.level-2 {
+            border-top-style: none;
+            display: none;            
+            li {
+              padding-left: 15px;
+              a {
+                background-image: none;
+                font-size: 11px;
+                padding-left:0;
+              }  
+             &:last-child {
+                padding-left: 0;
+                a {
+                  padding-left: 15px;
+                }
+              }
+            }
+
+            &.selected {
+              display: block;
+            }
+            
+          }       
+       } /* has children */
+       
+       &.selected {
+        ul.level-2 {
+          display: block;
+          li {
+            a {
+              background-image: none;
+            }
+          }
+        }
+        
+       }
+       
+       &.child-open {
+        a {
+          background-image: url(../images/custom/leftnav/btn-caret-open.png);        
+        }
+        
+        ul.level-2 {
+          display: block;
+        }
+       }
+               
+        a {
+          display: block;
+          background: transparent url(../images/custom/leftnav/caret-static.png) no-repeat 0 12px;
+          border-bottom: 1px solid #ededed;
+          padding: 10px 10px 10px 15px;
+          line-height: 13px;
+          
+          &.selected {
+            background-image: url(../images/custom/leftnav/caret-selected.png);
+            font-weight: normal;
+
+          }
+        }
+      } /*level 1 li */
+      
+    } /* level-1 */
+  } /* .nav-menu */
+} /* portlet-navigation */
+
+
+/* 
+ three column page 
+*/
+
+.netacad-three-col {
+  .portlet, .portlet-borderless-container {
+    padding: 0;
+  }
+
+  #column-2 {
+    line-height: 1.4em;
+    
+    h1 {
+      color: $purple;
+      margin: 0 0 20px 0;
+  		@include ciscolight(22px, normal);
+  		line-height: 1.2em;    
+    }
+    
+    h2 {
+      color: $purple;
+      font-size: 13px;
+    }
+    
+    em {
+      font-style: italic;
+    }
+    
+    p {
+      margin-bottom: 10px;
+      line-height: 1.4em;
+    }
+  }
+}
+
+.useful-links {
+  .links-wrap {
+  	h3 { 
+      margin-bottom: 8px;
+  		color: $purple;
+  		@include ciscolight(20px, normal);
+   		background: url("../images/custom/img_gradientbar_3col.png") left top no-repeat;
+   		padding-top: 15px;
+    }
+  
+    ul {
+  		border-top: 1px solid #ededed;
+  		border-bottom: 1px solid #fff;	
+      margin: 0;
+  	}
+  
+    li {
+  		margin-bottom: 0;
+  		padding: 8px 0;
+  		position: relative;
+  		border-top: 1px solid #fff;
+  		border-bottom: 1px solid #ededed;
+  		@include clearfix();
+    }
+  
+  	li p { 
+  	 margin-top: 5px;
+    }
+  }  
+}
+
+/* two column */
+
+.netacad-two-col {
+  margin-top: 32px;
+}
+
+.netacad-two-col #column-1 {
+  width: 140px;
+  padding-right: 20px;
+}
+
+.netacad-two-col #column-2 {
+  width: 780px;
+}
+
+.netacad-two-col .portlet-column-content {
+  padding: 0;
+}
+
+.netacad-two-col {
+  .portlet, .portlet-borderless-container {
+    padding: 0;
+  }
+
+  #column-2 {
+    line-height: 1.4em;
+    
+    h1 {
+      color: $purple;
+      margin: 0 0 20px 0;
+  		@include ciscolight(22px, normal);
+  		line-height: 1.2em;    
+    }
+    
+    h2 {
+      color: $purple;
+      font-size: 13px;
+    }
+    
+    em {
+      font-style: italic;
+    }
+    
+    p {
+      margin-bottom: 10px;
+      line-height: 1.4em;
+    }
+  }
+}
+
+.portlet-boundary_help_WAR_helpportlet_.help-portlet {
+    
+    padding: 10px;
+    
+    a {
+      background-color: #fafafa;
+      border-bottom-color: #ededed;
+      border-top-style: none;
+    }
+  
+    a:hover {
+      background-color: #f3f3f3;
+      background-image: none;
+    }
+    
+    a .text {
+      color: #1aaae2;
+      font-size: 15px;
+    }
+  
+    a:hover .text {
+      color: #1aaae2;   
+    }
+    
+    a .subtext {
+      color: #707070;
+      font-size: 12px;
+      font-style: normal;
+      
+    }
+    
+    a:hover .subtext {
+      color: #707070;
+    }
+    
+    .helpEmailForm {
+      padding: 10px;
+    }
+    
+    input[type="submit"], input[type="button"], input[type="reset"], button {
+			background: url("../images/custom/button-bg.png") center center repeat-x;  			
+			color: #fff;
+			text-shadow: 0 -1px 0 #000;
+			font-weight: normal;
+      border: 0;
+      padding: 8px 10px;    
+    }
+}
+
+body.home.page-maximized {
+  background-image: none;
+}
+
+/* full screen login portlet  and create acct portlet */
+.columns-max .portlet-login {
+
+  h1.portlet-title {
+  		@include ciscolight(22px, normal); 
+  		color : $purple;
+  		margin-top: 20px;
+  }
+
+  form.aui-form {
+    margin: 15px 0 30px 0;
+  }
+  
+  .aui-fieldset {
+    border-top: 1px solid #ededed;
+  }  
+  
+  .navigation {
+    border-top-color: #ededed;
+    background-color: transparent;
+  }
+  
+  input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover {
+		background: url("../images/custom/button-bg.png") center center repeat-x;
+		color: #fff;
+  }
+  
+  .aui-field-date {
+    .aui-datepicker {
+      .selector {
+        width: auto;
+        span {
+          min-width: inherit;
+          width: auto;
+          padding-right: 50px;
+        }
+      }
+      div.selector select {
+        min-width:inherit;
+
+        &.aui-datepicker-month {
+          width: 102px;
+        }
+        &.aui-datepicker-day {
+          width: 66px;
+        }
+        &.aui-datepicker-year {
+          width: 86px;
+        }
+
+      }
+    }
+    .aui-datepicker-button-wrapper {
+      display: none;
+      margin-top: 2px;
+      .aui-buttonitem-icon-only {
+        padding: 7px;
+      }
+    }
+  }
+  
+  .aui-field-select {
+    .selector {
+      width: auto;
+      span {
+        min-width: inherit;
+        width: auto;
+        padding-right: 50px;
+      }
+    }
+    div.selector select {
+      min-width:inherit;
+      
+      &.aui-field-input-select {
+        width: 86px;
+      }
+
+
+    }
+  }  
+  
+  
+  .aui-fieldset-content {
+
+    .aui-column {
+
+      padding: 0 20px 0 0;
+      .aui-form-validator-error-container .aui-field-element {
+        padding: 0;
+      }
+      
+      .aui-column-content {
+        
+          padding: 0 0 0 0;
+          .aui-field {
+            display: block;
+          }
+      }
+      .aui-field-input-text {
+
+      }
+    }
+  }
+  
+  [class~="aui-form-validator-message"] {
+    width: auto;
+  }
+  
+}
+
+.portlet-search {
+  h1.portlet-title {
+		@include ciscolight(22px, normal); 
+		color : $purple;
+		margin-top: 20px;  
+  }
+  .portlet-body {
+    position: relative;
+  }
+  
+  form.aui-form {
+    .aui-fieldset {
+  		@include border-radius(5px);
+  		@include box-shadow(0, 1px, 0, #ccc);
+      background-color: #f8f8f8;
+      padding: 15px;
+      width: 586px;
+      .aui-field {
+        &.aui-field-text {
+          margin-top: 2px;
+        }
+        
+        input.aui-field-input {
+          width: 348px;
+          padding: 8px;
+        }
+      }
+      .aui-button-content {
+        .aui-button-input:before {
+          content: "Search";
+        }
+        .aui-button-input-image {
+      		@include border-radius(5px);  
+      		padding: 10px 16px 9px 16px;
+      		margin-top: 1px;  
+        }
+      }
+      
+      .aui-button {
+        #_3_clear-search {
+          display: none;
+        } 
+      }
+      
+      
+    }
+  }
+  
+  .search-layout {
+     
+      .search-layout-content.menu-column-content {
+        padding-left: 0;
+        
+        .aui-column-first {
+        
+          /*  float: right; */
+          margin: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+        
+        .aui-column-last {
+          width: 620px;
+          padding-right: 20px;  
+        }
+      
+      .results-grid {
+        border-style: none;
+      }
+      
+      table.taglib-search-iterator {
+        tr { 
+          &.results-row {
+            border-style: none; 
+          }
+          background-color: transparent;
+          th, td {
+            border-style: none;
+            border-bottom: 1px solid #ededed;
+            background-image: none;
+            background-color: transparent;
+            padding: 7px 0;
+            
+          }
+        }
+      }
+      
+      table.taglib-search-iterator .asset-entry {
+        .asset-entry-title {
+          font-size: 13px;
+          font-weight: normal;
+          .highlight {
+            background-color: transparent;
+            font-weight: normal;
+          }
+        }
+        .asset-entry-type {
+          font-size: 11px;
+        }
+      }
+      .aui-searchcontainer {
+        margin-bottom: 10px;
+      }
+      
+      .search-facet {
+    		@include border-radius(5px);
+    		@include box-shadow(0, 1px, 0, #ccc);
+        background-color: #f8f8f8;
+        padding: 15px;
+        margin: 0 0 15px 0;     
+        border-top-style: none;   
+        ul {
+      		border-top: 1px solid #ededed;          
+        }
+        .facet-value {
+          font-size: 13px;
+      		border-top: 1px solid #fff;
+      		border-bottom: 1px solid #ededed;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          &.current-term {
+            background-color: #efefef;
+        		@include border-radius(0px);
+        		margin: 0;
+            a {
+              color: #1aaae2;
+              font-weight: normal;
+            }            
+          }
+        
+        }
+      }
+
+    } 
+  }
+}
+.firefox .portlet-search {
+  form.aui-form .aui-fieldset {
+    .aui-button-content {
+      .aui-button-input-image {
+    		margin-top: 0;  
+      }
+    }
+  }
+}
+
+/* 
+for error pages 
+*/
+.column-1 {
+
+  #portlet_status {
+ 		@include clearfix();
+  }
+  
+  #portlet_status { 
+    /*width: 430px;*/
+    margin: 36px auto 0 auto;
+    padding: 15px;
+		@include border-radius(5px);
+		@include box-shadow(0, 0, 5px, #ccc);
+    background-color: #fff;
+    display: inline-block;
+    text-align: center;
+    
+    h1.portlet-title {
+      display: none;
+    }
+    
+    .portlet-content {
+       text-align: center;
+       padding: 0;
+      h3 {
+        text-align: center;
+      }
+      br {
+        display: none;
+      }
+      code {
+        display: block;
+        clear: left;
+        font-family: "Arial", sans-serif;
+        
+      }
+      
+      .separator {
+        border-style: none;
+      }
+    }
+    
+    .portlet-msg-error {
+      border: none;
+  		color: $purple;
+  		@include ciscolight(20px, normal);
+   		background: url("../images/custom/img-gradientbar-430.png") center top no-repeat;
+   		padding-top: 15px;
+   		padding-left: 0;
+    }
+    
+    a {
+			display: inline-block;
+			padding: 10px 15px;
+			background: url("../images/custom/button-bg.png") center center repeat-x;
+			font-weight: bold;
+			color: #fff;
+			text-shadow: 0 -1px 0 #000;
+			border: none;
+			@include border-radius(4px);
+			/*margin-left: 180px;*/
+   
+    }    
+  }
+}
+
+.salesforce-lead-portlet {
+/*
+  .portlet-content {
+    padding-top: 0;
+*/
+    .portlet-body {
+      margin-top: 15px;
+    }
+    .academy-form-body {
+      .academy-form-title {
+    		color: $purple;
+    		@include ciscolight(20px, normal);    
+      }
+      br {
+        display: none;
+      }
+      form {
+        margin-top: 10px;
+      }      
+      .aui-field-select {
+        .aui-field-label {
+          padding-bottom: 2px;
+        }
+      }
+      .academy-form-table {
+        width: 80%;
+        input {
+          width: 100%;
+        }
+        &.business-phone-panel {
+          background-color: transparent;
+          padding: 0;
+          width: 64%;
+        }      
+      }
+      .academy-form-div {
+     		@include clearfix();
+      }
+
+      .academy-form-div {
+        width: 80%;
+        padding-bottom: 15px;
+        input {
+          width: 100%;
+        }        
+        input#_salesforcelead_WAR_salesforceleadportlet_website {
+          width: 98%;
+        }        
+        &.ed-level-panel {
+          background-color: transparent;
+          padding: 15px 0 15px 0;
+          margin: 0 0 0 0;
+         .ed-level-question {
+            > .aui-field-label {
+              color: $purple;
+              font-size: 13px;
+              font-weight: bold;          
+            }
+          }
+        }
+        &.classroom-panel {
+          background-color: transparent;
+          padding: 0 0 15px 0;
+          margin: 0 0 0 0;
+          .classroom-question {
+            > .aui-field-label {
+              color: $purple;
+              font-size: 13px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+      textarea {
+        width: 75%;      
+      }
+    }
+ /* } */
+}
+
+.user-signup-wrapper {
+ 		@include clearfix();
+}
+
+.user-signup-wrapper {
+
+    a.button {
+			display: block;
+      float: left;
+			padding: 10px 15px;
+			background: url("../images/custom/button-bg.png") center center repeat-x;
+			font-weight: bold;
+			color: #fff;
+			text-shadow: 0 -1px 0 #000;
+			border: none;
+			@include border-radius(4px);
+    
+    }
+  
+  fieldset {
+    width: 49%;
+    float:left;
+    .aui-field {
+      margin-bottom: 12px;
+    }
+  }
+  
+  fieldset:last-child {
+    width: 100%;
+  }
+
+}
+
+
+/* tables  and lists */
+
+.journal-content-article {
+
+  table {
+    border-style: none;
+    border-collapse: collapse;
+    
+    th {
+      background-color: #f7f7f7;
+      border: 1px solid #ededed;
+      color: #707070;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 10px;
+    }
+    
+    td {
+      border: 1px solid #ededed;
+      color: #707070;
+      font-size: 12px;
+      padding: 10px;
+      
+      ul {
+        font-size: 11px;
+        list-style-type: disc;
+        list-style-position: outside;
+        margin-left: 10px;
+      }
+      
+      h3 {
+        color: #404040;
+        font-size: 12px;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+  
+  ul,ol {
+    list-style-type: disc;
+    list-style-position: outside;
+    margin-left: 15px;
+  }
+}
+
+
+/* tables markup  for netacad two and three column */
+
+#column-2 {
+  .portlet-journal-content {
+    .journal-content-article {
+      table {        
+        h3 {
+          color: #404040;
+          font-size: 12px;
+          font-weight: normal;
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+#column-2 {
+  .pdf-link {
+    .pdf-link-wrap {
+      h3 {
+        background: transparent url(../images/custom/img-gradientbar-430.png) no-repeat top left;
+        padding-top: 15px;
+      }
+      .pdf-link-inner {
+        background: transparent url(../images/custom/icn-pdf-large.png) no-repeat top left;
+        min-height: 39px;
+        padding: 5px 0 0 55px;
+        h4 {
+          font-size: 12px;
+          font-weight: normal;
+          margin: 0;
+          padding: 0;
+        }
+      }
+    } 
+  }
+  .resource-link {
+    .resource-link-wrap {
+      h3 {
+        background: transparent url(../images/custom/img-gradientbar-750.png) no-repeat top left;
+        padding-top: 15px;
+      }
+      .resource-link-inner {
+        background: transparent url(../images/custom/icn-resources_sm_40x41.png) no-repeat top left;
+        min-height: 39px;
+        padding: 5px 0 0 55px;
+        h4 {
+          font-size: 12px;
+          font-weight: normal;
+          margin: 0;
+          padding: 0;
+        }
+      }
+    } 
+  }
+
+}
+
+/* case for terms of use page */
+
+#portlet_terms-of-use {
+  width: 940px;
+  margin: 15px auto 0 auto;
+
+  ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 12px;
+  }
+  .aui-field-content {
+    margin-bottom: 8px;
+  }
+  .custom-input {
+    margin-bottom: 8px;
+  }
+  
+  .label-checkbox-pair.custom-input label {
+    float: none;
+    display: inline;
+  }
+  .label-checkbox-pair input {
+    float: none;
+    margin: 0;
+  }
+}
+
+
+.training-preparation {
+  padding: 15px;
+  background-color: #F8F8F8;
+	@include border-radius(5px);
+  box-shadow: 0 1px 0 #CCCCCC;
+	@include clearfix();
+	width: 910px;
+  
+  h1 {
+		color: $purple;
+		@include ciscolight(22px, normal);  
+		margin-bottom: 20px;  
+  }
+  
+  .prepare-wrap {
+    background: url("../images/custom/img-gradientbar-910.png") left top no-repeat;
+    padding-top: 15px;  
+ 		@include clearfix();
+    h4 {
+  		color: #505050;
+  		@include ciscolight(20px, normal);  
+  		margin: 0 0 5px 0;  
+    }      
+
+    h5 {
+  		color: #505050;
+  		text-transform: uppercase;
+  		font-size: 13px;
+  		margin-bottom: 5px;
+    }      
+
+    ul {
+      padding-bottom: 15px;
+      li {
+        line-height: 14px;
+        margin-bottom: 5px;
+      }
+    }
+
+    .main-section {
+ 		  @include clearfix();
+      padding-left: 95px;
+      .sub-section {
+        float:left;
+        min-width: 270px;
+      }
+      .newrow {
+        clear: left;
+      }            
+    }
+    .videos {
+      background: transparent url(../images/custom/training/img-videos.png) no-repeat top left;
+    }
+    .docs {
+      background: transparent url(../images/custom/training/img-docs.png) no-repeat top left;
+    }
+    .in-person {
+      background: transparent url(../images/custom/training/img-virtual.png) no-repeat top left;
+    }
+  } 
+}
+
+.ie9 .training-preparation {
+  border-collapse: separate;
+}
+
+.user-import-portlet {
+  .user-import-form-wrapper {
+    clear:both;
+    input.aui-field-input {
+      min-width: 300px;
+    }
+  }
+  #portlet_userimport_WAR_userimportportlet {
+    padding: 15px 0 0 0;
+  }
+  .info-bubbles {
+    position: relative;  
+ 		@include clearfix();
+ 		margin-bottom: 15px;
+   
+    .content {
+      position: absolute;
+      right: 13px;
+      bottom: 0;
+      width: 206px;
+      height: 80px;
+      padding: 15px 15px 0 15px;
+      background-color: white;
+      p {
+        margin: 0;
+        line-height: 18px;
+      }
+    }
+    .bubble-1 {
+      width: 300px;
+      height: 179px;
+      background: transparent url(../images/custom/user_import/img-import-tout-1.png) top left no-repeat;  
+      margin-right: 20px;
+      float: left;
+      position: relative;
+    }
+    .bubble-2 {
+      width: 300px;
+      height: 179px;
+      background: transparent url(../images/custom/user_import/img-import-tout-2.png) top left no-repeat;  
+      margin-right: 20px;
+      float: left;
+      position: relative;
+    }
+    .bubble-3 {
+      width: 300px;
+      height: 179px;
+      background: transparent url(../images/custom/user_import/img-import-tout-3.png) top left no-repeat;  
+      float: left;
+      position: relative; 
+    }
+    
+  }
+  h2 {
+ 		color: $purple;
+		@include ciscolight(18px, normal);    
+		font-weight: normal;
+  }
+  .aui-fieldset-content {
+    padding-left: 0;
+  }
+  .terms-and-conditions.clear-all {
+    clear: both;
+    border-top: 1px solid #ededed;
+  } 
+}
+
+
+.migration-transition-portlet  {
+  .import-step {
+  	padding: 15px;
+  	background: #f8f8f8;
+  	@include border-radius(5px);
+  	@include box-shadow(0, 1px, 0, #ccc);
+  	@include clearfix();
+  	margin-bottom: 10px;
+  	
+    .tout-wrap {
+  		background: url("../images/custom/img-gradientbar-910.png") left top no-repeat;
+  		padding-top: 15px;
+
+      .inner-wrapper {
+        h3 {
+      		margin-bottom: 10px;
+      		color: $purple;
+      		@include ciscolight(22px, normal);        
+        }
+        
+        p {
+    			padding-right: 160px;
+    			line-height: 1.6;
+    			margin-bottom: 5px;        
+        }
+        
+        a {
+        
+        }
+        
+        ul.bullets {
+          padding-right: 160px;
+          margin-left: 15px;
+          list-style-type: disc;
+          list-style-position: outside;
+          line-height: 1.6;
+        }
+      
+        form button {
+          border: none;
+          &:hover {
+            border:none;
+          }
+          padding: 8px 20px;
+        }
+      }
+      
+    }
+  }
+  .import-step.step-3 {
+    background: #f8f8f8 url(../images/custom/training/img-upgrade.png) 97% 40px no-repeat;
+  }
+
+  .import-step.step-2 {
+    min-height: 98px;
+  }
+  
+  .unapproved {
+    .import-step.step-2 {
+      background: #f8f8f8 url(../images/custom/training/img-incomplete.png) 97% 40px no-repeat;
+    }
+    
+    .import-step.step-3 {
+      opacity: .4;
+      filter:alpha(opacity=40); 
+
+      form button {
+    		background-image: url("../images/custom/training/btn-slice-grey.png"); 
+    		cursor: default;     
+      }
+
+    }  
+  }
+
+  .approved {
+    .import-step.step-2 {
+      background: #f8f8f8 url(../images/custom/training/img-complete.png) 97% 40px no-repeat;
+    }
+
+    .import-step.step-3 {
+
+      form button {
+    		background-image: url("../images/custom/training/btn-slice-green.png");      
+    		
+      }
+      
+
+    }  
+  }
+
+}
+
+.ie9 .migration-transition-portlet .import-step {
+  border-collapse: separate;
+}
+/* 
+  ***************************************************************************************************************
+  Netacadadvantage additions below
+  
+*/
+
+/* netacadadvantage home column */
+
+
+#banner {
+  @include simple-linear-gradient(left,#6a328c,#33abdf);
+  #heading {
+    background-image: url("../images/custom/advantage/header_gradient.png");  
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 86px;
+    background-color: transparent;
+    border-top-style: none;
+    margin: 0;
+    .main {
+      background-color: #142042;
+      .locale {
+        position: absolute;
+        left: -134px;
+        top: 0px;
+        padding: 7px 12px 8px 14px;
+        @include custom-border-radius(0, 0, 5px, 5px);
+
+        a {
+          background: transparent url("../images/custom/advantage/header_dropdown_arrow.png") right center no-repeat;
+          padding-right: 14px;
+          color: #fff;
+          
+          
+        }
+        &:hover {
+          background-color: #142042;
+          @include box-shadow(0, 1px, 2px, rgba(0,0,0,0.25));
+
+          ul {
+            display: block;
+          }
+        }
+        ul {
+          background-color: #142042;
+          display: none;
+          padding-top: 5px;
+/*
+          position: absolute;
+          left: 0px;
+          top: 21px;
+          width: 115px;
+          padding: 7px 6px 8px 5px;
+*/
+
+          li {
+            display: block;
+            float: none;
+            border-left-style: none;
+            margin-bottom: 4px;
+            width: 100px;
+            a {
+              background-image: none;
+/*               display: block; */
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+    h4.header-title {
+      background: transparent url("../images/custom/advantage/netacad_advantage_logo.png") left center no-repeat;
+      color: #fff;
+  		font-weight: normal;
+  		width: 158px;
+  		height: 17px;
+  		position: absolute;
+  		text-indent: -999em;
+  		bottom: 5px;
+  		right: 0;
+  		z-index: 2;
+  		margin: 0;
+    }
+
+  }
+}
+
+.dropdown-nav {
+  .dropdown-wrapper {
+    > ul {
+      > li {
+        > a {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+    
+  }
+}
+
+#footer {
+  background: transparent url("../images/custom/advantage/footer_gradient.png") center top no-repeat;;  
+  color: #555;
+  padding-top: 4px;
+  height: 250px;
+  .links {
+    top: 40px;
+    a {text-decoration: underline;}
+  }
+  .copyright {
+    display: block;
+    position: absolute;
+    top: 72px;
+    a { 
+      color: #555; 
+      text-decoration: underline;
+    }
+
+  }
+  .disclaimer {
+    strong {
+      color: #555;
+      font-size: 12px;
+      font-weight: normal;
+    }
+    color: #505050;
+    display: block;
+    font-size: 11px;
+    line-height: 15px;
+    position: absolute;
+    top: 102px;
+  }
+}
+
+.advantage-home {
+  margin-top: 32px;
+}
+
+.advantage-home #column-1 {
+  width: 940px;
+  padding-right: 0;
+}
+
+.advantage-home #column-2 {
+  width: 620px;
+  padding-right: 20px;
+}
+
+.advantage-home #column-3 {
+  width: 300px;
+}
+
+.advantage-home .portlet-column-content {
+  padding: 0;
+}
+
+.columns-1 {
+  margin-top: 32px;  
+}
+
+.advantage-home {
+  .portlet, .portlet-borderless-container {
+    padding: 0;
+  }
+
+  #column-2 {
+    line-height: 1.4em;
+    
+    h1 {
+      color: $purple;
+      margin: 0 0 20px 0;
+  		@include ciscolight(22px, normal);
+  		line-height: 1;    
+    }
+    
+    h2 {
+      color: $purple;
+      font-size: 13px;
+    }
+    
+    em {
+      font-style: italic;
+    }
+    
+    p {
+      margin-bottom: 10px;
+      line-height: 1.4em;
+    }
+  }
+}
+
+
+.portlet-asset-publisher {
+  .asset-abstract {
+    margin-bottom: 20px;
+    position: relative;
+    height: 160px;
+    border-bottom: 1px solid #eaeaea;
+    h3.asset-title {
+      border-bottom-style: none;
+      font-size: 18px;
+      font-weight: normal;
+      line-height: 21px;
+      margin: 5px 15px 0 160px;
+      a {
+        img {
+          display: none;
+        }
+      }
+    }
+   .asset-content {
+      margin-left: 0;
+   }
+
+   .asset-more {
+     padding-left: 160px;
+   }
+  }
+  .asset-small-image {
+    padding: 0;
+    img {
+      float: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 140px;
+      height: 140px;
+
+    }      
+  }
+  .asset-summary {
+    padding: 10px 15px 10px 160px;
+    
+  }
+
+  .asset-metadata {
+    margin-left: 0;
+    span {
+      float: none;
+    }
+    .metadata-ratings {
+      clear: both;
+      margin-bottom: 10px;
+    }
+    .metadata-tags {
+      clear: both;
+    }
+    .metadata-publish-date {
+      background-image: none;
+      padding-left: 160px;
+    }
+   	.metadata-ratings {
+     	float: right;
+     	margin: -10px 0 0 0;
+      padding-right: 5px;
+   	}
+
+  }
+  .add-asset-selector {
+    margin-bottom: 0;
+  }
+}  
+
+.portlet-asset-publisher.home-latest {
+  background: transparent url("../images/custom/img-gradientbar-750.png") right top no-repeat;
+  padding-top: 16px;
+}
+
+.home-rotor.portlet-asset-publisher {
+  height: 261px;
+  position: relative;
+  margin-bottom: 16px;
+      
+  .asset-abstract {
+    display: none;
+  }
+  .asset-more {
+    clear:none;
+  }
+  
+  .portlet-borderless-container {
+    margin-bottom: 0;
+  }
+  .portlet-body {
+      background: transparent url('../images/custom/advantage/rotor_background.png') center center no-repeat;
+
+    height: 261px;
+    width: 620px;
+    
+    position: relative;
+    
+    .asset-abstract {
+      background: transparent none 0 0 no-repeat;
+      border: 1px none #a8a8a8;
+      width: 508px;
+      height: 200px;
+    	/*@include custom-border-radius(5px, 5px, 5px, 5px);*/
+    	padding: 20px 56px 41px 56px;
+    	
+    	.slide-wrap {
+    	  position: relative;
+    	  
+      	h3.asset-title {
+      	  margin-left: 212px;
+        	padding-bottom: 10px;
+        	a {  
+        	 color: #fff;
+          	&:hover {
+            	text-decoration: none;
+          	}
+        	}
+      	}
+      	.asset-small-image {
+        	overflow: hidden;
+      	  &>img {
+      	    width: 185px;
+      	    height: 185px;
+        	  position: absolute;
+        	  top: 0;
+        	  left: 0;
+      	  }
+      	}
+      	.asset-summary {
+      	  color: #fff;
+        	padding: 0 0 15px 212px;
+        	font-size: 13px;
+        	line-height: 19px;
+        	
+      	}
+      	.asset-more {
+        	padding-left: 212px;
+        	a {
+        	 background: transparent url('../images/custom/advantage/silver_button_grad.png') center center repeat-x;
+        	 height: 32px;
+        	 @include border-radius(5px);
+        	 padding: 10px 15px;
+        	 font-size: 13px;
+        	 color: #404040;
+        	}
+      	}
+    	}
+    }
+    
+    #slideshow-controls {
+    	width: 620px;
+    	background-color: transparent;
+    	border-top: 1px none #f5f5f5;
+    	position: absolute;
+    	bottom: 0;
+    	left: 1px;
+    	@include custom-border-radius(0, 0, 5px, 5px);
+    	text-align: center;
+    	z-index: 4;
+    			
+    	a {
+    		display: inline-block;
+    		border: 1px solid #868686;
+    		line-height: 0;
+    		margin: 5px 5px;
+    		&.activeSlide {
+    			background-position: left top;
+    			border-color: #fff;
+    		}
+    	}
+    }
+    
+    a#prev {
+      width: 11px;
+      height: 16px;
+      display: block;
+      position: absolute;
+      background: transparent url('../images/custom/advantage/rotor_prev.png') center center no-repeat;  
+      top: 107px;
+      left: 20px;
+      z-index: 4;
+    }
+    
+    a#next {
+      width: 11px;
+      height: 16px;
+      display: block;
+      position: absolute;
+      background: transparent url('../images/custom/advantage/rotor_next.png') center center no-repeat;  
+      right: 20px;
+      top: 107px;
+      z-index: 4;
+    }
+ }
+ .final-separator {
+   display: none;
+ }
+}
+
+.ie7 .home-rotor.portlet-asset-publisher .portlet-body  .asset-abstract {
+  background: transparent!important;
+}
+
+.ie8 .home-rotor.portlet-asset-publisher .portlet-body  .asset-abstract {
+  background: transparent!important;
+}
+
+/* 
+ seaofclouds twitter widget
+*/
+
+/*
+.tweet ul.tweet_list {
+   margin-left: 0;
+   padding-right: 10px;
+   li {
+      list-style-type: none;
+      margin-bottom: 10px;
+      line-height: 14px;
+      a.tweet_avatar {
+        float: left;
+        padding: 0 5px 0 0;
+      }
+      .tweet_time {
+        display: block;
+        margin-bottom: 5px;
+      }
+   }
+}
+*/
+
+.tweet ul.tweet_list {
+   margin-left: 0;
+   padding-right: 10px;
+   li {
+      list-style-type: none;
+      margin-bottom: 10px;
+      line-height: 14px;
+      position: relative;
+      padding-left: 45px;
+      a.tweet_avatar {
+        position: absolute;
+        padding: 0 5px 0 0;
+        left: 0;
+        top: 0;
+      }
+      .tweet_time {
+        display: block;
+        margin-bottom: 5px;
+        a {
+          color: #999;
+        }
+      }
+   }
+}
+
+.portlet-navigation {
+  h1 {
+    color: #747474;
+  }
+}
+
+/* styles inside blog entries
+*/
+.portlet-blogs .portlet-body {
+  .entry .entry-body {
+    .image-caption, .wp-caption {
+      padding: 0!important;
+      text-align: center;
+      background: #efefef;
+/*       border: 1px solid #E6E6E6;   */
+      & img {
+        padding: 0 0;
+      }  
+      &.alignright {
+        float: right;
+        margin: 0 0 15px 15px;        
+      }  
+
+      &.alignleft {
+        float: left;
+        margin: 0 15px 15px 0;
+        margin-left: -160px;        
+      }  
+
+      p {
+        font-size: 11px;
+        padding: 10px;
+        margin-left: 0;
+      }
+    }
+  }  
+  
+}
+
+
+
+/* 
+ blogs portlet 
+*/
+
+.portlet-blogs .portlet-body {
+  .taglib-header {
+    border-style: none;
+    margin: 0;
+    .header-back-to {
+      display: block;
+      position: absolute;
+      top: -25px;
+      right: 0;
+    }
+  }
+  
+  .search-form {
+    display: none;  
+  }
+  
+  
+  .entry {
+    position: relative;
+    min-height: 140px;
+    margin-left: 160px;
+    
+    .entry-title {
+      margin: 0 0 5px 0;
+      padding: 0 0 0 0;
+      h2 {
+        font-size: 18px;
+        font-weight: normal;
+        line-height: 21px;
+      }
+    }
+    .edit-actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding :0;
+    }
+    .asset-small-image {
+      padding: 0;
+      img {
+        float:none;
+        position: absolute;
+        left: -160px;
+        top: 0;
+        width: 140px;
+        height: 140px;
+  
+      }      
+    }
+
+    .entry-date {
+      background-image: none;
+      padding-left: 0;
+      margin: 0 0 10px -160px; 
+    }
+    .entry-title + .entry-date {
+      margin-left: 0;
+    }
+    
+    .entry-body {
+      padding: 10px 15px 0 0;
+/*       margin: 0 0 0 160px; */
+      margin: 0 0 0 0;
+
+      br {
+        clear:left;
+        margin-bottom: 10px;
+      }
+
+      h1,h2,h3,h4,h5,h6 {
+        margin-left: -160px;
+      }
+
+      
+      p {
+        margin-left: -160px;
+      }
+      ul {
+        margin-left: -160px;
+        list-style: disc;
+        padding-left:20px;
+        margin-bottom: 10px;
+      }
+
+      ol {
+        margin-left: -160px;
+        padding-left:20px;
+        margin-bottom: 10px;
+        list-style-type: decimal;
+      }
+
+      .image-caption p {
+        margin-left: 0;
+      }
+
+      hr {
+        margin-left: -160px;
+      }
+
+    }
+    
+    .entry-footer {
+       .stats {
+         margin: 0 0 15px -160px;
+         
+       }
+       .entry-author {
+         display: none;
+       }
+       .entry-tags {
+         display: none;       
+       }
+       .taglib-social-bookmarks {
+         margin-left: -160px;
+       }
+    }
+    
+  
+  }
+  .separator {
+    border-top: 1px solid #eaeaea;
+    margin: 20px auto;
+  }  
+}
+
+.controls-visible.signed-in {
+  .portlet-blogs .portlet-body {
+    .search-form {
+      display: block;
+    }  
+  }
+}
+
+.netacad-two-col #column-2 {
+  .portlet-blogs .portlet-body {
+    .taglib-header {
+      h1.header-title {
+        margin-bottom: 5px;
+      }
+    }
+    .entry {
+      position: relative;
+      .entry-title {
+        padding: 0 0 0 0;
+        h2 {
+          font-size: 18px;
+          font-weight: normal;
+        }
+      }
+      .entry-body {
+        h1,h2,h3,h4,h5,h6 {
+          margin-left: -160px;
+        }        
+      }
+    .edit-actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .image-caption {
+      p {
+        margin:0;
+      }
+    }
+    }
+    .taglib-page-iterator {
+      .search-results {
+        display: none;
+      }
+      .search-pages {
+        .delta-selector {
+          display:none;
+        }
+        .page-selector {
+          height: 25px;
+          line-height: 25px;
+        }
+        .page-links {
+          height: 25px;
+          line-height: 25px;
+        }
+      }
+    }
+  }
+}
+
+.most-popular { 
+
+	padding: 15px;
+	background: #f8f8f8;
+	@include border-radius(5px);
+	@include box-shadow(0, 1px, 0, #ccc);
+	@include clearfix();
+	margin-bottom: 16px;
+	
+  .portlet {
+  		background: url("../images/custom/img_gradientbar_3col.png") left top no-repeat;
+  		/* padding-top: 15px; */
+  		/*min-height: 128px; */
+  		margin-bottom: 0;
+  		.portlet-content {
+    		padding:0;
+  		}
+  }
+
+	h1 {
+		margin-bottom: 8px;
+		color: $purple;
+		@include ciscolight(22px, normal);
+		padding-top: 15px;
+	}
+	
+	.portlet-content-container {
+		position: relative;
+		li.title-list {
+  		margin-right: 0;
+      /*padding-right: 55px;*/
+      position: relative;
+      margin-bottom: 5px;
+		  line-height: 1.3em;
+  		a {
+  		  float: none;
+  		  
+    		img.icon {
+      		display:none;
+    		}
+  		}
+  		
+  		.asset-metadata {
+    		/*
+    		position: absolute;
+    		top: 0;
+    		right: 0;
+    		*/
+    		.metadata-view-count {
+      		float: none;
+      		margin-right: 0;
+    		}
+  		}
+
+    }
+	}
+	
+}
+
+.ie9 .most-popular {
+  border-collapse: separate;
+}
+
+.blog-title-hide {
+  margin-bottom: -48px;
+}
+
+.contact-us {
+  p {
+    margin: 0 0 25px 0;
+  }
+  h2 {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .email-social {
+    float: left;
+    width: 33%;
+    .social-links {
+      margin-top: 25px;      
+      a {
+        display: block;
+        text-indent: -999em;
+        height: 32px;
+        width: 32px;
+        float: left;
+        margin-right: 10px;
+        margin-top: 5px;
+      }
+      a.linkedin {
+        background: transparent url("../images/custom/advantage/linkedin_icon.png") center center no-repeat;
+      }
+      a.facebook {
+        background: transparent url("../images/custom/advantage/facebook_icon.png") center center no-repeat;        
+      }
+      a.twitter {
+        background: transparent url("../images/custom/advantage/twitter_icon.png") center center no-repeat;        
+      }
+    }
+  }
+  
+  .mail {
+    float: left;
+    width: 33%;
+    p {
+      margin-bottom: 0;
+    }
+    
+  }
+  
+  .more-info {
+
+    float: left;
+    width: 33%;
+    
+  }
+}
+
+.linkedin-sidebar {
+  .linkedin-icon {
+    display:block;
+    float:left;
+    margin-right: 8px;
+    background: transparent url("../images/custom/advantage/linkedin_icon.png");
+    height: 32px;
+    width: 32px;
+    text-indent: -999em;
+  }
+  p {
+    line-height: 16px;
+  }
+}
+
+.portlet-journal-content {
+
+  .portlet-body {
+    .image-caption { 
+      padding: 0!important; 
+      text-align: center; 
+      background: #efefef; 
+      img {
+        padding: 0 0;
+      }
+      p {
+        font-size: 11px; padding: 10px; margin-left: 0;
+      }
+      &.alignright {
+        float: right; 
+        margin: 0 0 15px 15px;
+      }
+      &.alignleft {
+        float: left;
+        margin: 0 15px 15px 0;
+      }
+      
+    }
+  }
+
+}

@@ -1,0 +1,62 @@
+/*
+    Colorbox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden; padding-right: 25px;}
+#cboxWrapper {max-width:none;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto; -webkit-overflow-scrolling: touch;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none; -ms-interpolation-mode:bicubic;}
+.cboxIframe{width:100%; height:100%; display:block; border:0; padding:0; margin:0;}
+#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
+
+/* 
+    User Style:
+    Change the following styles to modify the appearance of Colorbox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:#333; opacity: 0.7!important; filter: alpha(opacity = 40);}
+#colorbox{outline:0;}
+    #cboxContent{margin-top:32px; overflow:visible; background:#000;}
+        .cboxIframe{background:#fff;}
+        #cboxError{padding:50px; border:1px solid #ccc;}
+        #cboxLoadedContent{background:#fff;border-top: solid 5px #66CCFF;}
+        #cboxLoadingGraphic{background:url(../../images/understandRatings/loading.gif) no-repeat center center;}
+        #cboxLoadingOverlay{background:#000;}
+        #cboxTitle{position:absolute; top:-22px; left:0; color:#000;}
+        #cboxCurrent{position:absolute; top:-22px; right:205px; text-indent:-9999px;}
+
+        /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+#cboxPrevious{border:0; padding:0; margin:0; overflow:visible; text-indent:-9999px; width:32px; height:32px; position:absolute; top:25px; background:url(../../images/understandRatings/prev.png) no-repeat 0 0; left:20px; outline:none;}
+
+#cboxNext{border:0; padding:0; margin:0; overflow:visible; text-indent:-9999px; width:32px; height:32px; position:absolute; top:25px; background:url(../../images/understandRatings/next.png) no-repeat 0 0; right:20px; outline:none;}
+
+#cboxPrevious:first-child { display:none !important;}
+
+#cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; text-indent:-9999px; width:20px; height:20px; position:absolute; top:-20px; background:url(../../images/understandRatings/close.png) no-repeat 0 0; outline:none;}
+
+
+        
+        /* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+        #cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
+
+        #cboxClose{right:-25px;}
+        .cboxSlideshow_on #cboxPrevious, .cboxSlideshow_off #cboxPrevious{right:66px;}
+        .cboxSlideshow_on #cboxSlideshow{background-position:-75px -25px; right:44px;}
+        .cboxSlideshow_on #cboxSlideshow:hover{background-position:-100px -25px;}
+        .cboxSlideshow_off #cboxSlideshow{background-position:-100px 0px; right:44px;}
+        .cboxSlideshow_off #cboxSlideshow:hover{background-position:-75px -25px;}
+
+.inline-cont {padding:0% 8% 10% 8%; background:#fff;}
+.prv-topic {width:40%; display:inline-block; color:#969696; font-size: 12px; text-align:left; cursor:pointer; padding-top:27px;}
+.curr-topic{width:20%; display:inline-block; color:#969696; font-size: 12px; text-align:center;  padding-top:27px;}
+.next-topic{width:40%; display:inline-block; color:#969696; font-size: 12px; text-align:right; cursor:pointer;  padding-top:27px;}
+
+.inline-cont h1{color:#333; font-size: 18px; text-align:center; padding:10px;}
+.inline-cont h2{color:#969696; font-size: 14px; text-align:center; padding-bottom:15px; line-height: 23px; height:50px; font-weight:normal; width:500px; text-align: center; margin: 0 auto;}
+.inline-cont p{color:#333; font-size: 1em; line-height: 1.6em; padding-bottom:20px;}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+#parse ($init)
+
+<html class="#language("lang.dir")" dir="#language("lang.dir")" lang="$w3c_language_id">
+
+<head>
+
+  <title>$the_title - $company_name</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="$javascript_folder/jquery.cycle.all.js"></script>
+  <script src="$javascript_folder/jquery.uniform.min.js"></script>
+  <script src="$javascript_folder/custom.js"></script>
+  <script src="$javascript_folder/jquery.tweet.js"></script>
+
+  $theme.include($top_head_include)
+</head>
+
+<body class="$css_class" >
+
+#if ($is_signed_in)
+  #if (($permissionChecker.isOmniadmin())||$permissionChecker.isGroupAdmin($themeDisplay.getLayout().getGroupId()))
+    #dockbar()
+  #end
+#end
+
+<div id="wrapper">
+  <div class="content-wrapper">
+    <a href="#main-content" id="skip-to-content">#language("skip-to-content")</a>
+
+    <header id="banner" role="banner">
+      <div id="heading">
+        <div class="heading-content">
+        <nav class="main">
+        #*<nav class="locale">
+          <a href="http://www.netacadadvantage.com">English (global)</a>
+          <ul>
+            <li><a href="http://pl.netacadadvantage.com" target="_blank">Poland</a></li>
+          </ul>
+        </nav>*#
+  
+        #if ($is_signed_in)
+  
+          <ul>
+              #set ($userProfileLink = $portletURLFactory.create($request, "netacaduserprofile_WAR_netacaduserprofileportlet", $getterUtil.getLong($plid), "RENDER_PHASE"))
+              ${userProfileLink.setWindowState("maximized")}
+              ${userProfileLink.setPortletMode("view")}
+              ${userProfileLink.setParameter("jspPage", "/view.jsp")}
+              ${userProfileLink.setParameter("privateLayout", "true")}
+              ${userProfileLink.setParameter("fromtheme", "true")}
+              ${userProfileLink.setParameter("fromthemeRedirect", $theme_display.getURLCurrent())}
+              <li><span class="welcome-text">Welcome, <a class="user-dialog-link" href="${userProfileLink.toString()}" id="user-dialog-link">$user_name</a>, <a href="$sign_out_url">$sign_out_text</a></span></li>        
+  
+            <li class="search-container">
+              <span class="search-wrap">
+                $theme.search()
+              </span>
+            </li>
+  
+          </ul>
+  
+        #else
+          <ul>
+           <li class="">
+              <a id="" href="$sign_in_url">Sign In</a>
+  
+            </li>
+  
+            <li class="search-container">
+              <span class="search-wrap">
+                $theme.search()
+              </span>
+            </li>
+          </ul>
+        
+        #end
+        </nav>
+        <h1 class="company-title">
+            <img alt="$logo_description" height="$site_logo_height" src="$site_logo" width="$site_logo_width" />
+        </h1>
+  
+        <h2 class="site-title">
+          <a href="/" title="#language("go-to") $site_name">
+            <img alt="$logo_description" height="$site_logo_height" src="$site_logo" width="$site_logo_width" />
+          </a>
+        </h2>
+  
+        <h3 class="page-title">
+          <span>$the_title</span>
+        </h3>
+  
+        <h4 class="header-title">NetAcad Advantage</h4>
+        </div>
+      </div>
+  
+      #if (!$is_signed_in)
+        <a href="$sign_in_url" id="sign-in" rel="nofollow">$sign_in_text</a>
+      #end
+  
+  		#parse ("$full_templates_path/navigation.vm")
+  
+    #*
+    #set ($places = $user.getMySites())
+    #foreach ($place in $places)
+    #if ($place.getName() != "Landing")
+        #if ($place.isCommunity())
+          <li><a href="$place.getPathFriendlyURL(false, $themeDisplay)$place.getFriendlyURL()">$place.getName()</a></li>
+        #end
+      #if ($place.isUser())
+        #set ($myPlaceURL = $portletURLFactory.create($request, "49", $getterUtil.getLong($plid), "ACTION_PHASE"))
+  
+        ${myPlaceURL.setWindowState("normal")}
+        ${myPlaceURL.setPortletMode("view")}
+        ${myPlaceURL.setParameter("groupId",  ${place.getGroupId().toString()})}
+        ${myPlaceURL.setParameter("struts_action", "/my_sites/view")}
+  
+        #if (${place.hasPrivateLayouts()})
+          ${myPlaceURL.setParameter("privateLayout", "true")}
+          <li><a href="${myPlaceURL.toString()}">Community Profile</a></li>
+        #end
+  
+        #if (${place.hasPublicLayouts()})
+          ${myPlaceURL.setParameter("privateLayout", "false")}
+          <li><a href="${myPlaceURL.toString()}">Community Activites</a></li>
+        #end
+      #end
+     #end
+    #end
+    *#   
+    </header>
+
+    <div id="content">
+  
+      #if ($selectable)
+        $theme.include($content_include)
+      #else
+        $portletDisplay.recycle()
+  
+        $portletDisplay.setTitle($the_title)
+  
+        $theme.wrapPortlet("portlet.vm", $content_include)
+      #end
+    </div>
+  </div>
+
+  <footer id="footer" role="contentinfo">
+  	<div class="footer-wrap">
+	    <div class="footer-content">
+	      <ul class="links">
+	        <li><a href="http://www.cisco.com/web/siteassets/legal/terms_condition.html" target="_blank">Terms and Conditions</a></li>
+	        <li><a href="/about">About this Website</a></li>
+	        <li><a href="/contact-us">Contact Us</a></li>
+	      </ul>
+	      <span class="copyright">&copy;  1992-2012 Cisco Systems, Inc. All Rights Reserved. <a href="http://www.cisco.com/web/siteassets/legal/trademark.html" target="_blank">Trademark of Cisco Systems, Inc.</a></span> 
+	      <span class="disclaimer"><strong>Legal Disclaimer</strong><br />
+Opinions expressed here and in any corresponding comments are the personal opinions of the original authors, not of Cisco. The content is provided for informational purposes only and is not meant to be an endorsement or representation by Cisco or any other party. This site is available to the public. No information you consider confidential should be posted to this site. By posting you agree to be solely responsible for the content of all information you contribute, link to, or otherwise upload to the Website and release Cisco from any liability related to your use of the Website. You also grant to Cisco a worldwide, perpetual, irrevocable, royalty-free and fully-paid, transferable (including rights to sublicense) right to exercise all copyright, publicity, and moral rights with respect to any original content you provide.</span>
+
+	    </div>
+	 </div>
+  </footer>
+</div>
+
+$theme.include($body_bottom_include)
+</body>
+$theme.include($bottom_include)
+
+</html>

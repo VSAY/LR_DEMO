@@ -1,0 +1,59 @@
+#set ($companyName = '')
+#if($is_signed_in)
+	#if($!user.getExpandoBridge().getAttribute("CompanyName"))
+		#set ($companyName = $!user.getExpandoBridge().getAttribute("CompanyName"))
+	#end
+ #end
+ #set($customSiteLocale = "gbl")
+ 
+ #if($themeDisplay.getLocale() == "en_AU")
+	#set($customSiteLocale = "au")
+ #end
+ #set ($ipAddress = $request.getHeader("HTTP_X_FORWARDED_FOR"))
+#if (!$ipAddress)
+	#set($ipAddress = $request.getRemoteAddr())
+#end
+#set ($firstTimeLoggedinSession = false)
+#if($!request.getHeader("Referer"))
+	#if($!request.getHeader("Referer").contains("/login"))
+		#set ($firstTimeLoggedinSession = true)
+	#end
+#end
+#set ($pageName = $the_title)
+#set ($registrationComplete = false)
+#set ($registrationStart = false)
+#set ($loginStart = false)
+#if($page.getName($locale) == "Registration")
+	#set ($registrationStart = true)
+	#set ($pageName = "Registration Start")
+#end
+#if($page.getName($locale) == "Login")
+	#set ($loginStart = true)
+	#set ($pageName = "Login Start")
+#end
+ <script>
+	adobeDataLayer = {
+		'visitorIP':'$ipAddress',
+		'isLoggedIn':'$is_signed_in',
+		'companyName': '$companyName',
+		'userID': '$user_email_address',
+		'isNewUser':'$!user.isNew()',
+		'loginComplete':'$firstTimeLoggedinSession',
+		'registrationStart':'$registrationStart',
+		'loginStart':'$loginStart',
+		'siteName': 'sprt',
+		'siteLocale':'$customSiteLocale',
+		'siteLanguage': '$language',
+		'pageName': '$pageName',
+		'pageType':'$the_title',
+		'siteSection': '$the_title',
+		'siteSubSection':'',
+		'sectionID': '$layout.getName($locale)'
+	}
+ </script>
+ 
+ #if ($propsUtil.get("spratings.dtm.js.url") == '')
+  	<script type="text/javascript" charset="utf-8" src="/sandp-lr62-theme/js/satelliteLib-9dcc14e7923bea5a0eeae48ecab47631427b0bbc-staging.js"></script>	
+ #else
+ 	<script src='$propsUtil.get("spratings.dtm.js.url")'></script>
+ #end
